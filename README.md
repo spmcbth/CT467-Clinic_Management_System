@@ -26,8 +26,15 @@
     ```
 
 ## 4. Chạy Dự Án
-1. Chạy ứng dụng trên localhost:
+1. Thay đổi cấu hình trong `php/config.php`
+```php
+$servername = "localhost";  
+$username = "root"; // Tài khoản MySQL của bạn 
+$password = ""; // Nhập mật khẩu nếu có
+$database = "QLNhaThuoc";  
+```
+2. Chạy ứng dụng trên localhost:
     ```bash
-    php -S localhost:8000 -t public
+    php -S localhost:8080
     ```
-    Mở trình duyệt và truy cập [http://localhost:8000](http://localhost:8000) để xem kết quả.
+    Mở trình duyệt và truy cập [http://localhost:8080](http://localhost:8000) để xem kết quả.
