@@ -35,10 +35,10 @@ $database = "QLNhaThuoc";
 ```
 2. Chạy dự án:
 
-   *Lựa chọn 1 (PHP Built-in Server)*: Sử dụng PHP server tích hợp sẵn để chạy ứng dụng
-        ```bash
-        php -S localhost:8080
-        ```
-        Mở trình duyệt và truy cập [http://localhost:8080](http://localhost:8000) để xem kết quả.
+   *Sử dụng PHP server tích hợp sẵn để chạy ứng dụng*: 
+   ```bash
+   php -S localhost:8080
+   ```
+   Mở trình duyệt và truy cập [http://localhost:8080](http://localhost:8000) để xem kết quả.
 
-   *Lựa chọn 2 (XAMPP)*: Sử dụng phần mềm XAMPP để chạy Apache server
+   *Hoặc sử dụng phần mềm XAMPP để chạy Apache server*: 
