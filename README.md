@@ -49,4 +49,14 @@ Mở file `php/config.php` và thay đổi thông tin kết nối MySQL của b�
 $servername = "localhost";  
 $username = "root"; // Tài khoản MySQL của bạn 
 $password = ""; // Nhập mật khẩu nếu có
-$database = "QLNhaThuoc";  
+$database = "QLNhaThuoc";
+```
+
+### 5.2. Chạy Dự Án
+**Sử dụng PHP server tích hợp sẵn để chạy ứng dụng:**
+1. Mở terminal hoặc command prompt tại thư mục dự án.
+2. Chạy lệnh sau để khởi động PHP built-in server:
+   ```bash
+   php -S localhost:8080
+   ```
+**Hoặc sử dụng phần mềm XAMPP để chạy Apache server**
