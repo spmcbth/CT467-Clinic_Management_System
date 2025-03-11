@@ -1,0 +1,87 @@
+CREATE DATABASE QLNhaThuoc;
+USE QLNhaThuoc;
+
+-- Tạo bảng Hãng sản xuất
+CREATE TABLE HangSanXuat (
+    MaHangSX VARCHAR(10) PRIMARY KEY,
+    TenHang VARCHAR(100) NOT NULL,
+    QuocGia VARCHAR(50)
+);
+
+-- Tạo bảng Loại thuốc
+CREATE TABLE LoaiThuoc (
+    MaLoai VARCHAR(10) PRIMARY KEY,
+    TenLoai VARCHAR(100) NOT NULL,
+    DonViTinh VARCHAR(20)
+);
+
+-- Tạo bảng Nhà cung cấp
+CREATE TABLE NhaCungCap (
+    MaNCC VARCHAR(10) PRIMARY KEY,
+    TenNCC VARCHAR(100) NOT NULL,
+    SoDienThoai VARCHAR(15)
+);
+
+-- Tạo bảng Khách hàng
+CREATE TABLE KhachHang (
+    MaKH VARCHAR(10) PRIMARY KEY,
+    TenKH VARCHAR(100) NOT NULL,
+    SoDienThoai VARCHAR(15),
+    DiaChi VARCHAR(200)
+);
+
+-- Tạo bảng Thuốc
+CREATE TABLE Thuoc (
+    MaThuoc VARCHAR(10) PRIMARY KEY,
+    MaLoai VARCHAR(10),
+    MaHangSX VARCHAR(10),
+    MaNCC VARCHAR(10),
+    TenThuoc VARCHAR(100) NOT NULL,
+    CongDung VARCHAR(255),
+    DonGia DECIMAL(12,2) NOT NULL,
+    SoLuongTonKho INT NOT NULL DEFAULT 0,
+    HanSuDung DATE,
+    FOREIGN KEY (MaLoai) REFERENCES LoaiThuoc(MaLoai) ON DELETE CASCADE,
+    FOREIGN KEY (MaHangSX) REFERENCES HangSanXuat(MaHangSX) ON DELETE CASCADE,
+    FOREIGN KEY (MaNCC) REFERENCES NhaCungCap(MaNCC) ON DELETE CASCADE
+);
+
+-- Tạo bảng Hóa đơn
+CREATE TABLE HoaDon (
+    MaHD VARCHAR(10) PRIMARY KEY,
+    MaKH VARCHAR(10),
+    NgayLap DATE NOT NULL,
+    TongTien DECIMAL(12,2) NOT NULL DEFAULT 0,
+    FOREIGN KEY (MaKH) REFERENCES KhachHang(MaKH) ON DELETE CASCADE
+);
+
+-- Tạo bảng Chi tiết hóa đơn
+CREATE TABLE ChiTietHoaDon (
+    MaCTHD VARCHAR(10) PRIMARY KEY,
+    MaHD VARCHAR(10),
+    MaThuoc VARCHAR(10),
+    SoLuongBan INT NOT NULL,
+    GiaBan DECIMAL(12,2) NOT NULL,
+    FOREIGN KEY (MaHD) REFERENCES HoaDon(MaHD) ON DELETE CASCADE,
+    FOREIGN KEY (MaThuoc) REFERENCES Thuoc(MaThuoc) ON DELETE CASCADE
+);
+
+-- Tạo bảng lưu thông báo khi thuốc sắp hết hạn 
+CREATE TABLE ThongBao (
+    MaThongBao INT AUTO_INCREMENT PRIMARY KEY,
+    MaThuoc VARCHAR(10) NOT NULL,
+    NoiDung TEXT NOT NULL,
+    NgayThongBao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (MaThuoc) REFERENCES Thuoc(MaThuoc) ON DELETE CASCADE
+);
+
+-- Tạo bảng Users 
+CREATE TABLE Users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    HoTen VARCHAR(100) NOT NULL,
+    DiaChi TEXT NOT NULL,
+    SoDienThoai VARCHAR(15) NOT NULL
+);
+
