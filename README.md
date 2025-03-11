@@ -26,7 +26,11 @@
     ```
 
 ## 4. Chạy Dự Án
-1. Thay đổi cấu hình trong `php/config.php`
+1. Tải mã nguồn:
+- Nhấn vào nút **Code** màu xanh ở phía trên bên phải của danh sách file trong repository.
+- Chọn **Download ZIP** từ menu dropdown.
+- Tải về và giải nén file ZIP vào thư mục lưu trữ dự án
+2. Thay đổi cấu hình trong `php/config.php`
 ```php
 $servername = "localhost";  
 $username = "root"; // Tài khoản MySQL của bạn 
