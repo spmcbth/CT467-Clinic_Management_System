@@ -1,12 +1,11 @@
 <?php
 $servername = "localhost";  
-$username = "root";         
-$password = "123456";             
+$username = "root"; // Tài khoản MySQL của bạn 
+$password = "123456"; // Thay đổi mậtmật       
 $database = "QLNhaThuoc";  
-$port = 3306; 
 
 // Kết nối đến MySQL
-$conn = new mysqli($servername, $username, $password, $database, $port);
+$conn = new mysqli($servername, $username, $password, $database);
 
 // Kiểm tra kết nối
 if ($conn->connect_error) {
