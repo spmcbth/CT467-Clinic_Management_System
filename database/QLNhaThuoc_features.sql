@@ -31,7 +31,7 @@ BEGIN
     -- Nếu thuốc sắp hết hạn trong vòng 30 ngày
     IF ngayConLai <= 30 AND ngayConLai > 0 THEN
         INSERT INTO ThongBao (MaThuoc, NoiDung)
-        VALUES (NEW.MaThuoc, CONCAT('Cảnh báo: Thuốc "', NEW.TenThuoc, '" sắp hết hạn sử dụng trong ', ngayConLai, ' ngày!'));
+        VALUES (NEW.MaThuoc, CONCAT('Thuốc "', NEW.TenThuoc, '" sắp hết hạn sử dụng trong ', ngayConLai, ' ngày!'));
     END IF;
 END $$
 
@@ -47,3 +47,48 @@ BEGIN
     WHERE l.TenLoai LIKE CONCAT('%', ten_loai, '%');
 END $$
 -- CALL GetThuocTheoLoai('kháng sinh');
+
+-- Lấy danh sách Thuốc 
+DELIMITER $$
+DROP PROCEDURE IF EXISTS GetDanhSachThuoc; $$
+CREATE PROCEDURE GetDanhSachThuoc()
+BEGIN
+	SELECT t.MaThuoc, t.TenThuoc, lt.TenLoai, t.CongDung, t.DonGia, t.SoLuongTonKho, lt.DonViTinh, (t.SoLuongTonKho * t.DonGia) AS TongTien, t.HanSuDung
+	FROM Thuoc t
+	JOIN LoaiThuoc lt ON t.MaLoai = lt.MaLoai
+	JOIN NhaCungCap ncc ON t.MaNCC = ncc.MaNCC
+	JOIN HangSanXuat hsx ON t.MaHangSX = hsx.MaHangSX;
+END $$
+-- CALL GetDanhSachThuoc()
+
+-- Lấy danh sách Khách Hàng 
+DELIMITER $$
+CREATE PROCEDURE GetDanhSachKhachHang()
+BEGIN
+	SELECT * FROM KhachHang;
+END $$
+-- CALL GetDanhSachKhachHang()
+
+-- Lấy danh sách Hóa Đơn 
+DELIMITER $$
+CREATE PROCEDURE GetDanhSachHoaDon()
+BEGIN
+	SELECT * FROM HoaDon;
+END $$
+-- CALL GetDanhSachHoaDon()
+
+-- Lấy danh sách thông báo thuốc sắp hết hạn
+DELIMITER $$
+CREATE PROCEDURE GetDanhSachThuocHetHan()
+BEGIN
+	SELECT * FROM ThongBao;
+END $$
+-- CALL GetDanhSachThuocHetHan()
+
+-- Lấy danh sách loại thuốc
+DELIMITER $$
+CREATE PROCEDURE GetDanhSachLoaiThuoc()
+BEGIN
+	SELECT * FROM LoaiThuoc;
+END $$
+-- CALL GetDanhSachLoaiThuoc()
