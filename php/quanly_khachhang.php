@@ -43,6 +43,7 @@ require_once 'function/functions.php';
                                     <th>Họ và Tên</th>
                                     <th>Số Điện Thoại</th>
                                     <th>Địa Chỉ</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody class="text-center">

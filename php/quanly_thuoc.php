@@ -48,6 +48,7 @@ require_once 'function/functions.php';
                                     <th>Đơn Vị Tính</th>
                                     <th>Tổng Tiền</th>
                                     <th>Hạn Sử Dụng</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody class="text-center">
