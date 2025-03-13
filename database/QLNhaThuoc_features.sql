@@ -48,7 +48,7 @@ BEGIN
 END $$
 -- CALL LayThuocTheoLoai('kháng sinh');
 
--- Lấy danh sách Thuốc 
+# LẤY DANH SÁCH THUỐC  
 DELIMITER $$
 DROP PROCEDURE IF EXISTS LayDanhSachThuoc; $$
 CREATE PROCEDURE LayDanhSachThuoc()
