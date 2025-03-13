@@ -15,7 +15,11 @@ function generateID($prefix, $table, $column, $conn) {
 // Các hàm lấy danh sách 
 function LayDanhSachThuoc(){
     global $conn;
-    return $conn->query("CALL LayDanhSachThuoc()");}
+    if ($conn->more_results()) {
+        $conn->next_result();
+    }
+    return $conn->query("CALL LayDanhSachThuoc()");
+}
 
 function LayDanhSachLoaiThuoc(){
     global $conn;
@@ -46,5 +50,16 @@ function LayDanhSachNhaCungCap() {
     global $conn;
     return $conn->query("CALL LayDanhSachNhaCungCap()");
 }
+
+// Hàm thêm thuốc
+if (!function_exists('ThemThuoc')) {
+    function ThemThuoc($MaThuoc, $MaLoai, $MaHangSX, $MaNCC, $TenThuoc, $CongDung, $DonGia, $SoLuong, $HanSuDung) {
+        global $conn;
+        $stmt = $conn->prepare("CALL ThemThuoc(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssssdss", $MaThuoc, $MaLoai, $MaHangSX, $MaNCC, $TenThuoc, $CongDung, $DonGia, $SoLuong, $HanSuDung);
+        return $stmt->execute();
+    }
+}
+
 
 ?>

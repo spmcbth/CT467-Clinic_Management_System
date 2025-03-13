@@ -3,7 +3,7 @@
     $username = "root"; 
     $password = "123456";     
     $database = "QLNhaThuoc";  
-
+    
     // Kết nối đến MySQL
     $conn = new mysqli($servername, $username, $password, $database);
 

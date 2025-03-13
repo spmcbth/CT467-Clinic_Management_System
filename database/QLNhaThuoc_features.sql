@@ -57,7 +57,8 @@ BEGIN
 	FROM Thuoc t
 	JOIN LoaiThuoc lt ON t.MaLoai = lt.MaLoai
 	JOIN NhaCungCap ncc ON t.MaNCC = ncc.MaNCC
-	JOIN HangSanXuat hsx ON t.MaHangSX = hsx.MaHangSX;
+	JOIN HangSanXuat hsx ON t.MaHangSX = hsx.MaHangSX
+    ORDER BY t.MaThuoc;
 END $$
 -- CALL LayDanhSachThuoc()
 

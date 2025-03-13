@@ -4,17 +4,17 @@ if (!isset($_SESSION["username"])) {
     header("Location: login.php"); 
     exit();
 }
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
-include 'config.php';
+require_once 'config.php';
 require_once 'function/functions.php';
-require_once 'function/them_thuoc.php'; 
+require_once 'function/them_thuoc.php';  
 
+// Drop dơwn 
 $loaiThuoc = mysqli_query($conn, "SELECT * FROM LoaiThuoc ORDER BY TenLoai");
 $hangSX = mysqli_query($conn, "SELECT * FROM HangSanXuat ORDER BY TenHang");
 $nhaCungCap = mysqli_query($conn, "SELECT * FROM NhaCungCap ORDER BY TenNCC");
 $thongBao = isset($_SESSION['thongbao']) ? $_SESSION['thongbao'] : "";
+
 if (isset($_SESSION['thongbao'])) {
     unset($_SESSION['thongbao']);
 }
@@ -28,9 +28,9 @@ if (isset($_SESSION['thongbao'])) {
     <title>Quản Lý Thuốc - Quản Lý Nhà Thuốc</title>
     <link rel="icon" type="image/png" sizes="16x16" href="../../assets/image/icon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/table.css">
-    <link rel="stylesheet" href="../assets/css/them_thuoc.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/table.css">
+    <link rel="stylesheet" href="/assets/css/them_thuoc.css">
     <style></style>
 
 </head>
@@ -58,7 +58,7 @@ if (isset($_SESSION['thongbao'])) {
                         <?php endif; ?>
 
                         <div id="formThemThuoc" class="form-container" style="display: none;">
-                            <form method="post" action="function/them_thuoc.php" class="form-thuoc">
+                            <form method="POST" action="./function/them_thuoc.php" class="form-thuoc">
                                 <div class="form-group">
                                     <label>Loại Thuốc:</label>
                                     <select name="ma_loai" required>
@@ -167,6 +167,7 @@ if (isset($_SESSION['thongbao'])) {
             </div>
         </div>
     </div>
+
     <?php include 'includes/footer.php'; ?>
 </div>
 

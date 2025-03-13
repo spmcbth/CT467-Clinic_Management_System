@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $row["password"])) {
             $_SESSION["username"] = $username;
             $_SESSION["HoTen"] = $row["HoTen"];
-            header("Location: quanly_thuoc.php");
+            header("Location: quanly_thongbao.php");
             exit();
         } else {
             $error = "Sai mật khẩu!";
