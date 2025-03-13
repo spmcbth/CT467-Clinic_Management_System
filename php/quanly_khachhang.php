@@ -4,7 +4,7 @@ if (!isset($_SESSION["username"])) {
     header("Location: login.php");
     exit();
 }
-include 'config.php';
+require_once 'config.php';
 require_once 'function/functions.php';
 ?>
 
@@ -18,6 +18,7 @@ require_once 'function/functions.php';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/table.css">
+    <link rel="stylesheet" href="../assets/css/them_thuoc.css">
 </head>
 <body>
 
@@ -33,7 +34,7 @@ require_once 'function/functions.php';
                     </div>
                     
                     <div class="card p-4 shadow">
-                        <a href="them_KH.php" class="btn btn-primary mb-3">
+                        <a href="functions/them_KH.php" class="btn btn-primary mb-3">
                             <i class="fas fa-plus"></i> Thêm Khách Hàng
                         </a>
                         <table class="table table-bordered table-striped table-hover">
@@ -48,15 +49,15 @@ require_once 'function/functions.php';
                             </thead>
                             <tbody class="text-center">
                                 <?php
-                                $result = GetDanhSachKhachHang();
+                                $result = LayDanhSachKhachHang();
                                 if ($result && $result->num_rows > 0) {
                                     while ($row = $result->fetch_assoc()) {
                                         echo "<tr>
-                                                <td>" . htmlspecialchars($row['MaKH']) . "</td>
-                                                <td>" . htmlspecialchars($row['TenKH']) . "</td>
-                                                <td>" . htmlspecialchars($row['SoDienThoai']) . "</td>
-                                                <td>" . htmlspecialchars($row['DiaChi']) . "</td>
-                                                <td>
+                                                <td class='ma'>" . htmlspecialchars($row['MaKH']) . "</td>
+                                                <td class='ten-KH'>" . htmlspecialchars($row['TenKH']) . "</td>
+                                                <td class='so-dien-thoai'>" . htmlspecialchars($row['SoDienThoai']) . "</td>
+                                                <td class='dia-chi'>" . htmlspecialchars($row['DiaChi']) . "</td>
+                                                <td class='button-center'>
                                                     <a href='sua_KH.php?id=" . htmlspecialchars($row['MaKH']) . "' class='btn btn-warning btn-sm'>
                                                         <i class='fas fa-edit'></i> Sửa
                                                     </a>

@@ -4,7 +4,7 @@ if (!isset($_SESSION["username"])) {
     header("Location: login.php");
     exit();
 }
-include 'config.php';
+require_once 'config.php';
 require_once 'function/functions.php';
 ?>
 
@@ -18,6 +18,7 @@ require_once 'function/functions.php';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/table.css">
+    <link rel="stylesheet" href="../assets/css/them_thuoc.css">
 </head>
 <body>
 
@@ -44,14 +45,14 @@ require_once 'function/functions.php';
                             </thead>
                             <tbody class="text-center">
                                 <?php
-                                $result = GetDanhSachThuocHetHan();
+                                $result = LayDanhSachThuocHetHan();
                                 if ($result && $result->num_rows > 0) {
                                     while ($row = $result->fetch_assoc()) {
                                         echo "<tr>
-                                                <td>" . htmlspecialchars($row['MaThongBao']) . "</td>
-                                                <td>" . htmlspecialchars($row['MaThuoc']) . "</td>
-                                                <td>" . htmlspecialchars($row['NoiDung']) . "</td>
-                                                <td>" . htmlspecialchars($row['NgayThongBao']) . "</td>                                                
+                                                <td class='ma'>" . htmlspecialchars($row['MaThongBao']) . "</td>
+                                                <td class='ma'>" . htmlspecialchars($row['MaThuoc']) . "</td>
+                                                <td class='noi-dung'>" . htmlspecialchars($row['NoiDung']) . "</td>
+                                                <td class='ngay'>" . htmlspecialchars($row['NgayThongBao']) . "</td>                                                
                                             </tr>";
                                     }
                                 } else {

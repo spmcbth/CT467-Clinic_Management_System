@@ -1,6 +1,24 @@
-.action-buttons {
-    display: flex;
-    gap: 5px;
+.page-header {
+    text-transform: uppercase;
+}
+
+td.ma,
+td.don-gia,
+td.so-luong,
+td.don-vi-tinh,
+td.ngay,
+td.button-center {
+    text-align: center;
+}
+
+td.button-center {
+    white-space: nowrap; /* Giữ nút trên cùng một dòng */
+    text-align: center;
+}
+
+.button-center a {
+    display: inline-block;  /* Giữ nút trên cùng một hàng */
+    margin: 3px 5px;
 }
 
 .btn {
@@ -9,26 +27,37 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
-    font-weight: bold; /* In đậm chữ */
+    font-weight: 600px; 
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    text-decoration: none; /* Loại bỏ gạch chân */
+    text-decoration: none; 
     transition: background 0.3s ease, opacity 0.3s;
+}
+
+.btn-primary.mb-3 {
+    font-weight: bold;
+    font-size: 16px;
+    padding: 12px 18px;
 }
 
 .btn-primary {
     background-color: #28a745;
     color: white;
+    border-radius: 5px;
+}
+
+.btn-primary:hover {
+    background-color: #218838; 
 }
 
 .btn-warning {
-    background-color: #ff9800; /* Màu cam đẹp hơn */
+    background-color: #ff9800; 
     color: white;
 }
 
 .btn-danger {
-    background-color: #e53935; /* Màu đỏ đậm hơn */
+    background-color: #e53935; 
     color: white;
 }
 
@@ -48,14 +77,21 @@ table {
 
 table th, table td {
     padding: 12px;
-    text-align: left;
     border-bottom: 1px solid #dee2e6;
+}
+
+.table td {
+    text-align: center;
+    vertical-align: middle;
 }
 
 table th {
     background-color: #f8f9fa;
     color: #495057;
     font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+    text-transform: uppercase;
 }
 
 table tr:hover {

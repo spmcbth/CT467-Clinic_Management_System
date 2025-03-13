@@ -4,7 +4,7 @@ if (!isset($_SESSION["username"])) {
     header("Location: login.php");
     exit();
 }
-include 'config.php';
+require_once 'config.php';
 require_once 'function/functions.php';
 ?>
 
@@ -18,6 +18,10 @@ require_once 'function/functions.php';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/table.css">
+    <link rel="stylesheet" href="../assets/css/them_thuoc.css">
+    <style>
+        
+    </style>
 </head>
 <body>
 
@@ -33,9 +37,11 @@ require_once 'function/functions.php';
                     </div>
                     
                     <div class="card p-4 shadow">
-                        <a href="tim_kiem.php" class="btn btn-primary mb-3">
-                            <i class="fas fa-plus"></i> Tìm Kiếm Thuốc Theo Loại
-                        </a>
+                        <div class="btn-container"> 
+                            <button class="btn btn-primary mb-3" onclick="toggleForm()">
+                                <i class="fas fa-plus"></i> Thêm Loại Thuốc
+                            </button>
+                        </div> 
                         <table class="table table-bordered table-striped table-hover">
                             <thead class="table-dark text-center">
                                 <tr>
@@ -46,13 +52,13 @@ require_once 'function/functions.php';
                             </thead>
                             <tbody class="text-center">
                                 <?php
-                                $result = GetDanhSachLoaiThuoc();
+                                $result = LayDanhSachLoaiThuoc();
                                 if ($result && $result->num_rows > 0) {
                                     while ($row = $result->fetch_assoc()) {
                                         echo "<tr>
-                                                <td>" . htmlspecialchars($row['MaLoai']) . "</td>
-                                                <td>" . htmlspecialchars($row['TenLoai']) . "</td>
-                                                <td>" . htmlspecialchars($row['DonViTinh']) . "</td>                                               
+                                                <td class='ma'>" . htmlspecialchars($row['MaLoai']) . "</td>
+                                                <td class='ten-loai'>" . htmlspecialchars($row['TenLoai']) . "</td>
+                                                <td class='don-vi-tinh'>" . htmlspecialchars($row['DonViTinh']) . "</td>                                               
                                             </tr>";
                                     }
                                 } else {

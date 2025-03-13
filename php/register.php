@@ -1,5 +1,5 @@
 <?php
-include "config.php"; 
+require_once "config.php"; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["username"]) || empty($_POST["password"]) || empty($_POST["HoTen"]) || empty($_POST["DiaChi"]) || empty($_POST["SoDienThoai"])) {

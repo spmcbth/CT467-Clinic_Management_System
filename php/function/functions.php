@@ -1,5 +1,5 @@
 <?php
-include '../config.php';
+include './config.php';
 
 // Hàm tạo mã ID tự động
 function generateID($prefix, $table, $column, $conn) {
@@ -12,29 +12,39 @@ function generateID($prefix, $table, $column, $conn) {
     return $prefix . str_pad($maxId + 1, 3, '0', STR_PAD_LEFT);
 }
 
-function GetDanhSachThuoc(){
+// Các hàm lấy danh sách 
+function LayDanhSachThuoc(){
     global $conn;
-    return $conn->query("CALL GetDanhSachThuoc()");
+    return $conn->query("CALL LayDanhSachThuoc()");}
+
+function LayDanhSachLoaiThuoc(){
+    global $conn;
+    return $conn->query("CALL LayDanhSachLoaiThuoc()");
 }
 
-function GetDanhSachLoaiThuoc(){
+function LayDanhSachKhachhang(){
     global $conn;
-    return $conn->query("CALL GetDanhSachLoaiThuoc()");
+    return $conn->query("CALL LayDanhSachKhachHang()");
 }
 
-function GetDanhSachKhachhang(){
+function LayDanhSachHoaDon(){
     global $conn;
-    return $conn->query("CALL GetDanhSachKhachHang()");
+    return $conn->query("CALL LayDanhSachHoaDon()");
 }
 
-function GetDanhSachHoaDon(){
+function LayDanhSachThuocHetHan(){
     global $conn;
-    return $conn->query("CALL GetDanhSachHoaDon()");
+    return $conn->query("CALL LayDanhSachThuocHetHan()");
 }
 
-function GetDanhSachThuocHetHan(){
+function LayDanhSachHangSX() {
     global $conn;
-    return $conn->query("CALL GetDanhSachThuocHetHan()");
+    return $conn->query("CALL LayDanhSachHangSX()");
+}
+
+function LayDanhSachNhaCungCap() {
+    global $conn;
+    return $conn->query("CALL LayDanhSachNhaCungCap()");
 }
 
 ?>

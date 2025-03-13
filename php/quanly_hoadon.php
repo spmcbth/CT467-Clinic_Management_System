@@ -4,7 +4,7 @@ if (!isset($_SESSION["username"])) {
     header("Location: login.php");
     exit();
 }
-include 'config.php';
+require_once 'config.php';
 require_once 'function/functions.php';
 ?>
 
@@ -18,6 +18,7 @@ require_once 'function/functions.php';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/table.css">
+    <link rel="stylesheet" href="../assets/css/them_thuoc.css">
 </head>
 <body>
 
@@ -33,7 +34,7 @@ require_once 'function/functions.php';
                     </div>
                     
                     <div class="card p-4 shadow">
-                        <a href="them_HD.php" class="btn btn-primary mb-3">
+                        <a href="funtions/them_HD.php" class="btn btn-primary mb-3">
                             <i class="fas fa-plus"></i> Thêm Hóa Đơn
                         </a>
                         <table class="table table-bordered table-striped table-hover">
@@ -48,15 +49,15 @@ require_once 'function/functions.php';
                             </thead>
                             <tbody class="text-center">
                                 <?php
-                                $result = GetDanhSachHoaDon();
+                                $result = LayDanhSachHoaDon();
                                 if ($result && $result->num_rows > 0) {
                                     while ($row = $result->fetch_assoc()) {
                                         echo "<tr>
-                                                <td>" . htmlspecialchars($row['MaHD']) . "</td>
-                                                <td>" . htmlspecialchars($row['MaKH']) . "</td>
-                                                <td>" . htmlspecialchars($row['NgayLap']) . "</td> 
-                                                <td>" . number_format($row['TongTien'], 0, ',', '.') . " đ</td>
-                                               <td>
+                                                <td class='ma'>" . htmlspecialchars($row['MaHD']) . "</td>
+                                                <td class='ma'>" . htmlspecialchars($row['MaKH']) . "</td>
+                                                <td class='ngay'>" . htmlspecialchars($row['NgayLap']) . "</td> 
+                                                <td class='tong-tien'>" . number_format($row['TongTien'], 0, ',', '.') . " đ</td>
+                                               <td class='button-center'>
                                                     <a href='sua_HD.php?id=" . htmlspecialchars($row['MaHD']) . "' class='btn btn-warning btn-sm'>
                                                         <i class='fas fa-edit'></i> Sửa
                                                     </a>
