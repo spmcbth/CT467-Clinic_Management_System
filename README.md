@@ -15,8 +15,15 @@
 - Nhấn vào nút **Code** màu xanh ở phía trên bên phải của danh sách file trong repository.
 - Chọn **Download ZIP** từ menu dropdown.
 - Tải về và giải nén file ZIP vào thư mục lưu trữ dự án.
+## 2. Cài đặt Cơ Sở Dữ Liệu (MySQL)
+1. Truy cập [http://localhost/phpmyadmin](http://localhost/phpmyadmin).
+2. Nhấn **New**, nhập tên CSDL: **QLNhaThuoc**, nhấn **Create**.
+3. Import file SQL:
+    Chọn database QLNhaThuoc.
+    Nhấn tab Import, chọn file QLNhaThuoc_db.sql, QLNhaThuoc_data.sql, QLNhaThuoc_features.sql.
+    Nhấn Go để import CSDL.
 
-## 2. Cài Đặt Composer trên Windows (Nếu chưa có)
+## 3. Cài Đặt Composer trên Windows (Nếu chưa có)
 1. Truy cập [https://getcomposer.org/](https://getcomposer.org/) và tải Composer Setup.
 2. Chạy file `.exe` và làm theo hướng dẫn để cài đặt.
 3. Kiểm tra cài đặt bằng lệnh:
@@ -24,7 +31,7 @@
     composer --version
     ```
 
-## 3. Clone mPDF bằng Git (Nếu chưa có)
+## 4. Clone mPDF bằng Git (Nếu chưa có)
 1. Mở Command Prompt và chuyển đến thư mục dự án:
     ```bash
     cd [thư_mục_dự_án]
@@ -52,11 +59,15 @@ $password = ""; // Nhập mật khẩu nếu có
 $database = "QLNhaThuoc";
 ```
 
-### 5.2. Chạy Dự Án
-**Sử dụng PHP server tích hợp sẵn để chạy ứng dụng:**
+### 5.2. Chạy Dự Án Bằng PHP server
 1. Mở terminal hoặc command prompt tại thư mục dự án.
 2. Chạy lệnh sau để khởi động PHP built-in server:
    ```bash
    php -S localhost:8080
    ```
-**Hoặc sử dụng phần mềm XAMPP để chạy Apache server**
+### 5.3 Chạy Dự Án Bằng XAMPP 
+1. Mở XAMPP Control Panel, khởi động Apache và MySQL.
+1. Mở trình duyệt, nhập:
+    ```bash
+    http://localhost/ten_du_an
+    ```
