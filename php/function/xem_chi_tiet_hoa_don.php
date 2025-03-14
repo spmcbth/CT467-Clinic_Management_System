@@ -14,32 +14,13 @@ if (!isset($_GET['id'])) {
 }
 
 $maHD = $_GET['id'];
-
-// Lấy thông tin hóa đơn
-$sqlHoaDon = "SELECT HoaDon.MaHD, KhachHang.TenKH, HoaDon.NgayLap, HoaDon.TongTien
-              FROM HoaDon
-              JOIN KhachHang ON HoaDon.MaKH = KhachHang.MaKH
-              WHERE HoaDon.MaHD = ?";
-$stmt = $conn->prepare($sqlHoaDon);
-$stmt->bind_param("s", $maHD);
-$stmt->execute();
-$resultHoaDon = $stmt->get_result();
-$hoaDon = $resultHoaDon->fetch_assoc();
+$hoaDon = LayHoaDon($conn, $maHD);
+$chiTietHoaDon = LayChiTietHoaDon($conn, $maHD);
 
 if (!$hoaDon) {
     echo "Hóa đơn không tồn tại!";
     exit();
 }
-
-// Lấy danh sách thuốc trong hóa đơn
-$sqlChiTiet = "SELECT Thuoc.TenThuoc, ChiTietHoaDon.SoLuongBan, ChiTietHoaDon.GiaBan
-               FROM ChiTietHoaDon
-               JOIN Thuoc ON ChiTietHoaDon.MaThuoc = Thuoc.MaThuoc
-               WHERE ChiTietHoaDon.MaHD = ?";
-$stmt = $conn->prepare($sqlChiTiet);
-$stmt->bind_param("s", $maHD);
-$stmt->execute();
-$resultChiTiet = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>
@@ -80,13 +61,13 @@ $resultChiTiet = $stmt->get_result();
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php while ($row = $resultChiTiet->fetch_assoc()) : ?>
+                                <?php foreach ($chiTietHoaDon as $row) : ?>
                                     <tr>
                                         <td><?= htmlspecialchars($row['TenThuoc']) ?></td>
                                         <td><?= htmlspecialchars($row['SoLuongBan']) ?></td>
                                         <td><?= number_format($row['GiaBan'], 0, ',', '.') ?> VNĐ</td>
                                     </tr>
-                                <?php endwhile; ?>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
 

@@ -51,17 +51,6 @@ function LayDanhSachNhaCungCap() {
     return $conn->query("CALL LayDanhSachNhaCungCap()");
 }
 
-function LayChiTietHoaDon($conn, $maHD) {
-    $query = "CALL LayChiTietHoaDon(?)";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("s", $maHD);
-    $stmt->execute();
-    
-    $result = $stmt->get_result();
-    return $result;
-}
-
-
 // Hàm thêm thuốc
 if (!function_exists('ThemThuoc')) {
     function ThemThuoc($MaThuoc, $MaLoai, $MaHangSX, $MaNCC, $TenThuoc, $CongDung, $DonGia, $SoLuong, $HanSuDung) {
@@ -84,6 +73,34 @@ function ThemHoaDon($conn, $maKH, $ngayLap, $tongTien) {
         return false;
     }
 }
+
+function LayHoaDon($conn, $maHD) {
+    $query = "CALL LayHoaDon(?)";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("s", $maHD);
+    $stmt->execute();
+    
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
+function LayChiTietHoaDon($conn, $maHD) {
+    $query = "CALL LayChiTietHoaDon(?)";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("s", $maHD);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    $chiTietHoaDon = [];
+
+    while ($row = $result->fetch_assoc()) {
+        $chiTietHoaDon[] = $row; // Lưu nhiều dòng vào mảng
+    }
+
+    $stmt->close();
+    return $chiTietHoaDon; // Trả về danh sách chi tiết hóa đơn
+}
+
 
 function ThemChiTietHoaDon($conn, $maHD, $maThuoc, $soLuongBan, $giaBan) {
     $query = "INSERT INTO ChiTietHoaDon (MaHD, MaThuoc, SoLuongBan, GiaBan) VALUES (?, ?, ?, ?)";

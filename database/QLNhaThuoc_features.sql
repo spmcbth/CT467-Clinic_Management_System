@@ -130,17 +130,29 @@ BEGIN
 END $$
 -- CALL LayDanhSachNhaCungCap()
 
--- lấy chi tiết hóa đơn 
+-- chi tiết hóa đơn
 DELIMITER $$
 DROP PROCEDURE IF EXISTS LayChiTietHoaDon $$
 CREATE PROCEDURE LayChiTietHoaDon(IN p_MaHD VARCHAR(10))
 BEGIN
-    SELECT cthd.MaCTHD, cthd.MaHD, T.TenThuoc, cthd.SoLuongBan, cthd.GiaBan, (cthd.SoLuongBan * cthd.GiaBan) AS ThanhTien
-    FROM ChiTietHoaDon cthd
-    JOIN Thuoc T ON CTHD.MaThuoc = T.MaThuoc
-    WHERE CTHD.MaHD = p_MaHD;
+	SELECT Thuoc.TenThuoc, ChiTietHoaDon.SoLuongBan, ChiTietHoaDon.GiaBan
+	FROM ChiTietHoaDon
+	JOIN Thuoc ON ChiTietHoaDon.MaThuoc = Thuoc.MaThuoc
+	WHERE ChiTietHoaDon.MaHD = p_MaHD;
 END $$
--- CALL LayChiTietHoaDon()
+-- CALL LayChiTietHoaDon('HD001')
+
+-- 		===  LẤY CHI TIẾT HÓA ĐƠN  === 
+DELIMITER $$
+DROP PROCEDURE IF EXISTS LayHoaDon $$
+CREATE PROCEDURE LayHoaDon(IN p_MaHD VARCHAR(10))
+BEGIN
+	SELECT HoaDon.MaHD, KhachHang.TenKH, HoaDon.NgayLap, HoaDon.TongTien
+	FROM HoaDon
+	JOIN KhachHang ON HoaDon.MaKH = KhachHang.MaKH
+	WHERE HoaDon.MaHD = p_MaHD;
+END $$
+-- CALL LayHoaDon('HD001')
 
 #		=== THÊM THUỐC ===
 DELIMITER $$
