@@ -48,8 +48,8 @@ $resultChiTiet = $stmt->get_result();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chi Tiết Hóa Đơn</title>
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" href="/assets/css/table.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/chitiethoadon.css">
 </head>
 <body>
 
@@ -90,7 +90,7 @@ $resultChiTiet = $stmt->get_result();
                             </tbody>
                         </table>
 
-                        <a href="hoa_don.php" class="btn btn-secondary mt-3">Quay Lại</a>
+                        <a href="../quanly_hoadon.php" class="btn btn-secondary mt-3">Quay Lại</a>
                     </div>
                 </div>
             </div>

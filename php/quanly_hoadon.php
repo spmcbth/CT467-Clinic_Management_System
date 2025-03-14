@@ -62,7 +62,7 @@ require_once 'function/them_HD.php';
                                                 <td class='ngay'>" . htmlspecialchars($row['NgayLap']) . "</td> 
                                                 <td class='tong-tien'>" . number_format($row['TongTien'], 0, ',', '.') . " đ</td>
                                                <td class='button-center'>
-                                                    <a href='./function/xem_chi_tiet_hoa_don.php?id=" . htmlspecialchars($row['MaHD']) . "' class='btn btn-warning btn-sm'>
+                                                    <a href='./function/xem_chi_tiet_hoa_don.php?id=" . htmlspecialchars($row['MaHD']) . "' class='btn btn-view btn-sm'>
                                                         <i class='fas fa-edit'></i> Xem
                                                     </a>
                                                     <a href='./function/sua_HD.php?id=" . htmlspecialchars($row['MaHD']) . "' class='btn btn-warning btn-sm'>

@@ -178,3 +178,17 @@ table tr:hover {
     margin-bottom: 20px;
     align-items: center;
 }
+
+.btn-view {
+    background-color: #28a745;
+    color: white;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-weight: bold;
+    transition: background 0.3s ease, opacity 0.3s;
+}
+
+.btn-view:hover {
+    background-color: #28a745;
+    opacity: 0.9;
+}
