@@ -71,6 +71,8 @@ $database = "QLNhaThuoc";
    ```bash
    php -S localhost:8080
    ```
+
+## 6. Nếu web báo lỗi đường dẫn thì thay include và require_once thành đường dẫn tuyệt dối
 ### 5.3 Chạy Dự Án Bằng XAMPP 
 1. Mở XAMPP Control Panel, khởi động Apache và MySQL.
 1. Mở trình duyệt, nhập:
