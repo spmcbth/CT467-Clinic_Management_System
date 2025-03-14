@@ -15,12 +15,18 @@
 - Nhấn vào nút **Code** màu xanh ở phía trên bên phải của danh sách file trong repository.
 - Chọn **Download ZIP** từ menu dropdown.
 - Tải về và giải nén file ZIP vào thư mục lưu trữ dự án.
+
 ## 2. Cài đặt Cơ Sở Dữ Liệu (MySQL)
-1. Truy cập [http://localhost/phpmyadmin](http://localhost/phpmyadmin).
+1. Truy cập MyPHPAdmin [http://localhost/phpmyadmin](http://localhost/phpmyadmin).
 2. Nhấn **New**, nhập tên CSDL: **QLNhaThuoc**, nhấn **Create**.
 3. Import file SQL:
     Chọn database QLNhaThuoc.
-    Nhấn tab Import, chọn file QLNhaThuoc_db.sql, QLNhaThuoc_data.sql, QLNhaThuoc_features.sql.
+    Nhấn tab Import, chọn file
+    ```bash
+       QLNhaThuoc_db.sql
+       QLNhaThuoc_data.sql
+       QLNhaThuoc_features.sql.
+    ```
     Nhấn Go để import CSDL.
 
 ## 3. Cài Đặt Composer trên Windows (Nếu chưa có)
