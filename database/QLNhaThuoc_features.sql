@@ -16,22 +16,40 @@ BEGIN
 END $$
 -- SELECT LaySoLuongThuoc('T001') AS SoLuongTon;
 
--- TRIGGER: Tự động thông báo khi thuốc sắp hết hạn ( trước 30 ngày )
+# TRIGGER: THÔNG BÁO THUỐC HẾT HẠN 
+-- Tự động thông báo thuốc sắp hết hạn mỗi ngày 
 DELIMITER $$
-CREATE TRIGGER CheckHanSuDungThuoc
-AFTER UPDATE ON Thuoc
+DROP TRIGGER IF EXISTS AutoCheckThuocHetHan $$
+CREATE EVENT AutoCheckThuocHetHan
+ON SCHEDULE EVERY 1 DAY
+STARTS CURRENT_TIMESTAMP
+DO
+BEGIN
+    INSERT INTO ThongBao (MaThuoc, NoiDung, NgayThongBao)
+    SELECT 
+        t.MaThuoc, 
+        CONCAT('Thuốc "', t.TenThuoc, '" sắp hết hạn vào ngày ', DATE_FORMAT(t.HanSuDung, '%d-%m-%Y')), 
+        NOW()
+    FROM Thuoc t
+    WHERE DATEDIFF(t.HanSuDung, CURDATE()) <= 30
+    AND NOT EXISTS (
+        SELECT 1 FROM ThongBao tb 
+        WHERE tb.MaThuoc = t.MaThuoc 
+        AND tb.NoiDung LIKE '%sắp hết hạn%'
+    );
+END $$
+
+-- Thông báo nếu thuốc thêm vào sắp hết hạn 
+DELIMITER $$
+CREATE TRIGGER CheckThuocHetHan_Insert
+AFTER INSERT ON Thuoc
 FOR EACH ROW
 BEGIN
-    DECLARE ngayHienTai DATE;
-    DECLARE ngayConLai INT;
-
-    SET ngayHienTai = CURDATE();
-    SET ngayConLai = DATEDIFF(NEW.HanSuDung, ngayHienTai);
-
-    -- Nếu thuốc sắp hết hạn trong vòng 30 ngày
-    IF ngayConLai <= 30 AND ngayConLai > 0 THEN
-        INSERT INTO ThongBao (MaThuoc, NoiDung)
-        VALUES (NEW.MaThuoc, CONCAT('Thuốc "', NEW.TenThuoc, '" sắp hết hạn sử dụng trong ', ngayConLai, ' ngày!'));
+    IF DATEDIFF(NEW.HanSuDung, CURDATE()) <= 30 THEN
+        INSERT INTO ThongBao (MaThuoc, NoiDung, NgayThongBao)
+        VALUES (NEW.MaThuoc, 
+                CONCAT('Thuốc "', NEW.TenThuoc, '" sắp hết hạn vào ngày ', DATE_FORMAT(NEW.HanSuDung, '%d-%m-%Y')), 
+                NOW());
     END IF;
 END $$
 
