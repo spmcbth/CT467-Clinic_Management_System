@@ -66,7 +66,8 @@ BEGIN
 END $$
 -- CALL LayThuocTheoLoai('kháng sinh');
 
-# LẤY DANH SÁCH THUỐC  
+#		===  LẤY DANH SÁCH THUỐC  === 
+
 DELIMITER $$
 DROP PROCEDURE IF EXISTS LayDanhSachThuoc; $$
 CREATE PROCEDURE LayDanhSachThuoc()
@@ -80,7 +81,7 @@ BEGIN
 END $$
 -- CALL LayDanhSachThuoc()
 
-# LẤY DANH SÁCH 
+#    === CÁC HÀM LẤY DANH SÁCH  ===
 -- danh sách Khách Hàng 
 DELIMITER $$
 CREATE PROCEDURE LayDanhSachKhachHang()
@@ -129,7 +130,19 @@ BEGIN
 END $$
 -- CALL LayDanhSachNhaCungCap()
 
-# THÊM THUỐC 
+-- lấy chi tiết hóa đơn 
+DELIMITER $$
+DROP PROCEDURE IF EXISTS LayChiTietHoaDon $$
+CREATE PROCEDURE LayChiTietHoaDon(IN p_MaHD VARCHAR(10))
+BEGIN
+    SELECT cthd.MaCTHD, cthd.MaHD, T.TenThuoc, cthd.SoLuongBan, cthd.GiaBan, (cthd.SoLuongBan * cthd.GiaBan) AS ThanhTien
+    FROM ChiTietHoaDon cthd
+    JOIN Thuoc T ON CTHD.MaThuoc = T.MaThuoc
+    WHERE CTHD.MaHD = p_MaHD;
+END $$
+-- CALL LayChiTietHoaDon()
+
+#		=== THÊM THUỐC ===
 DELIMITER $$
 CREATE PROCEDURE ThemThuoc(
     IN p_MaThuoc VARCHAR(10),
@@ -147,4 +160,5 @@ BEGIN
     VALUES (p_MaThuoc, p_MaLoai, p_MaHangSX, p_MaNCC, p_TenThuoc, p_CongDung, p_DonGia, p_SoLuongTonKho, p_HanSuDung);
 END $$
 
+#		=== THÊM HÓA ĐƠN	===
 

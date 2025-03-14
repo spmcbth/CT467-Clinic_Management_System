@@ -51,6 +51,17 @@ function LayDanhSachNhaCungCap() {
     return $conn->query("CALL LayDanhSachNhaCungCap()");
 }
 
+function LayChiTietHoaDon($conn, $maHD) {
+    $query = "CALL LayChiTietHoaDon(?)";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("s", $maHD);
+    $stmt->execute();
+    
+    $result = $stmt->get_result();
+    return $result;
+}
+
+
 // Hàm thêm thuốc
 if (!function_exists('ThemThuoc')) {
     function ThemThuoc($MaThuoc, $MaLoai, $MaHangSX, $MaNCC, $TenThuoc, $CongDung, $DonGia, $SoLuong, $HanSuDung) {
@@ -59,6 +70,35 @@ if (!function_exists('ThemThuoc')) {
         $stmt->bind_param("ssssssdss", $MaThuoc, $MaLoai, $MaHangSX, $MaNCC, $TenThuoc, $CongDung, $DonGia, $SoLuong, $HanSuDung);
         return $stmt->execute();
     }
+}
+
+// HÓA ĐƠN 
+function ThemHoaDon($conn, $maKH, $ngayLap, $tongTien) {
+    $query = "INSERT INTO HoaDon (MaKH, NgayLap, TongTien) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("ssd", $maKH, $ngayLap, $tongTien);
+
+    if ($stmt->execute()) {
+        return $conn->insert_id; // Trả về MaHD vừa tạo
+    } else {
+        return false;
+    }
+}
+
+function ThemChiTietHoaDon($conn, $maHD, $maThuoc, $soLuongBan, $giaBan) {
+    $query = "INSERT INTO ChiTietHoaDon (MaHD, MaThuoc, SoLuongBan, GiaBan) VALUES (?, ?, ?, ?)";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("ssid", $maHD, $maThuoc, $soLuongBan, $giaBan);
+
+    return $stmt->execute();
+}
+
+function CapNhatTongTienHoaDon($maHD, $tongTien) {
+    global $conn;
+    $query = "UPDATE HoaDon SET TongTien = ? WHERE MaHD = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("is", $tongTien, $maHD);
+    return $stmt->execute();
 }
 
 

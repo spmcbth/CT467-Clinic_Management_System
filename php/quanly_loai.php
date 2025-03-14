@@ -19,9 +19,6 @@ require_once 'function/functions.php';
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/table.css">
     <link rel="stylesheet" href="../assets/css/them_thuoc.css">
-    <style>
-        
-    </style>
 </head>
 <body>
 
@@ -42,6 +39,7 @@ require_once 'function/functions.php';
                                 <i class="fas fa-plus"></i> Thêm Loại Thuốc
                             </button>
                         </div> 
+
                         <table class="table table-bordered table-striped table-hover">
                             <thead class="table-dark text-center">
                                 <tr>

@@ -6,6 +6,7 @@ if (!isset($_SESSION["username"])) {
 }
 require_once 'config.php';
 require_once 'function/functions.php';
+require_once 'function/them_HD.php';  
 ?>
 
 <!DOCTYPE html>
@@ -20,8 +21,8 @@ require_once 'function/functions.php';
     <link rel="stylesheet" href="../assets/css/table.css">
     <link rel="stylesheet" href="../assets/css/them_thuoc.css">
 </head>
-<body>
 
+<body>
 <div class="wrapper">
     <div class="content-wrapper">
         <?php include 'includes/sidebar.php'; ?>
@@ -34,9 +35,12 @@ require_once 'function/functions.php';
                     </div>
                     
                     <div class="card p-4 shadow">
-                        <a href="funtions/them_HD.php" class="btn btn-primary mb-3">
-                            <i class="fas fa-plus"></i> Thêm Hóa Đơn
-                        </a>
+                        <div class="btn-container"> 
+                            <a href="them_hoa_don.php" class="btn btn-primary mb-3">
+                                <i class="fas fa-plus"></i> Thêm Hóa Đơn
+                            </a>
+                        </div>
+
                         <table class="table table-bordered table-striped table-hover">
                             <thead class="table-dark text-center">
                                 <tr>
@@ -58,10 +62,13 @@ require_once 'function/functions.php';
                                                 <td class='ngay'>" . htmlspecialchars($row['NgayLap']) . "</td> 
                                                 <td class='tong-tien'>" . number_format($row['TongTien'], 0, ',', '.') . " đ</td>
                                                <td class='button-center'>
-                                                    <a href='sua_HD.php?id=" . htmlspecialchars($row['MaHD']) . "' class='btn btn-warning btn-sm'>
+                                                    <a href='./function/xem_chi_tiet_hoa_don.php?id=" . htmlspecialchars($row['MaHD']) . "' class='btn btn-warning btn-sm'>
+                                                        <i class='fas fa-edit'></i> Xem
+                                                    </a>
+                                                    <a href='./function/sua_HD.php?id=" . htmlspecialchars($row['MaHD']) . "' class='btn btn-warning btn-sm'>
                                                         <i class='fas fa-edit'></i> Sửa
                                                     </a>
-                                                    <a href='xoa_HD.php?id=" . htmlspecialchars($row['MaHD']) . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Bạn có chắc muốn xóa hóa đơn này không?\");'>
+                                                    <a href='function/xoa_HD.php?id=" . htmlspecialchars($row['MaHD']) . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Bạn có chắc muốn xóa hóa đơn này không?\");'>
                                                         <i class='fas fa-trash'></i> Xóa
                                                     </a>
                                                 </td>
