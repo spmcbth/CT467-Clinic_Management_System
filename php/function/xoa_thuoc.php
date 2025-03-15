@@ -3,8 +3,14 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-include '../config.php';
+require_once '../config.php';
 require_once 'functions.php';
+
+if (!isset($_GET['id'])) {
+    $_SESSION['thongbao'] = "<div class='alert alert-danger'>Lỗi: Mã thuốc không hợp lệ!</div>";
+    header("Location: ../quanly_thuoc.php");
+    exit();
+}
 
 $MaThuoc = $_GET['id'];
 
@@ -19,6 +25,10 @@ if ($stmt->execute()) {
 }
 
 $stmt->close();
+$conn->close();
+
 header("Location: ../quanly_thuoc.php");
+echo "<script>window.location.href='../quanly_thuoc.php';</script>";
 exit();
+
 ?>

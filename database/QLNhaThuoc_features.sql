@@ -176,6 +176,7 @@ END $$
 
 #		=== SỬA THUỐC  ===
 DELIMITER $$
+DROP PROCEDURE IF EXISTS SuaThuoc $$
 CREATE PROCEDURE SuaThuoc(
     IN p_MaThuoc VARCHAR(10),
     IN p_MaLoai VARCHAR(10),
@@ -200,5 +201,17 @@ BEGIN
         HanSuDung = P_HanSuDung
     WHERE MaThuoc = p_MaThuoc;
 END $$
+
+#		===  XÓA THUỐC  ===
+DELIMITER $$
+DROP PROCEDURE IF EXISTS XoaThuoc $$
+CREATE PROCEDURE XoaThuoc(IN p_MaThuoc VARCHAR(10))
+BEGIN
+    -- Xóa dữ liệu liên quan trong bảng ChiTietHoaDon trước (nếu có)
+    DELETE FROM ChiTietHoaDon WHERE MaThuoc = p_MaThuoc;
+    -- Sau đó xóa thuốc trong bảng Thuoc
+    DELETE FROM Thuoc WHERE MaThuoc = p_MaThuoc;
+END $$ 
+
 
 

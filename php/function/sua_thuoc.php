@@ -1,8 +1,4 @@
 <?php
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -12,7 +8,7 @@ require_once 'functions.php';
 
 if (!isset($_GET['id'])) {
     $_SESSION['thongbao'] = "Mã thuốc không hợp lệ!";
-    header("Location: quanly_thuoc.php");
+    header("Location: ../quanly_thuoc.php");
     exit();
 }
 

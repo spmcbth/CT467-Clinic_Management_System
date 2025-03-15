@@ -1,3 +1,4 @@
+CREATE DATABASE QLNhaThuoc;
 USE QLNhaThuoc;
 
 -- Tạo bảng Hãng sản xuất
