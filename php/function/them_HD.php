@@ -3,7 +3,7 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-include '../config.php';
+include __DIR__ . '/../config.php';
 require_once 'functions.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

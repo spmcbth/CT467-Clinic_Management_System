@@ -1,5 +1,5 @@
 <?php
-include '../config.php';
+include __DIR__ . '/../config.php';
 
 // Các hàm lấy danh sách 
 if (!function_exists('LayDanhSachThuoc')) {
