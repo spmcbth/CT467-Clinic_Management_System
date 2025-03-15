@@ -31,7 +31,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btn_them'])) {
         $_SESSION['thongbao'] = "<div class='alert alert-danger'>Lỗi thêm thuốc: " . $stmt->error . "</div>";
     }
     
-    $stmt->close();
     header("Location: ../quanly_thuoc.php"); // Quay lại trang quản lý thuốc
     exit();
 }

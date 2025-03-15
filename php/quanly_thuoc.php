@@ -117,80 +117,6 @@ if (isset($_SESSION['thongbao'])) {
                                 <input type="submit" name="btn_them" value="Lưu Thuốc" class="btn-submit">
                             </form>
                         </div>
-                        <!-- Sửa thuốc  -->
-                        <div id="formSuaThuoc" class="form-container" style="display: none;">
-                            <form method="POST" action="./function/sua_thuoc.php" class="form-thuoc">
-                                <input type="hidden" name="ma_thuoc" value="<?= htmlspecialchars($thuoc['MaThuoc']) ?>">
-
-                                <div class="form-group">
-                                    <label>Loại Thuốc:</label>
-                                    <select name="ma_loai" required>
-                                        <option value="">-- Chọn loại thuốc --</option>
-                                        <?php while ($row = mysqli_fetch_assoc($loaiThuoc)) : ?>
-                                            <option value="<?= htmlspecialchars($row['MaLoai']) ?>"
-                                                <?= ($row['MaLoai'] == $thuoc['MaLoai']) ? 'selected' : '' ?>>
-                                                <?= htmlspecialchars($row['TenLoai']) ?>
-                                            </option>
-                                        <?php endwhile; ?>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Hãng Sản Xuất:</label>
-                                    <select name="ma_hangsx" required>
-                                        <option value="">-- Chọn hãng sản xuất --</option>
-                                        <?php while ($row = mysqli_fetch_assoc($hangSX)) : ?>
-                                            <option value="<?= htmlspecialchars($row['MaHangSX']) ?>"
-                                                <?= ($row['MaHangSX'] == $thuoc['MaHangSX']) ? 'selected' : '' ?>>
-                                                <?= htmlspecialchars($row['TenHang']) ?>
-                                            </option>
-                                        <?php endwhile; ?>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Nhà Cung Cấp:</label>
-                                    <select name="ma_ncc" required>
-                                        <option value="">-- Chọn nhà cung cấp --</option>
-                                        <?php while ($row = mysqli_fetch_assoc($nhaCungCap)) : ?>
-                                            <option value="<?= htmlspecialchars($row['MaNCC']) ?>"
-                                                <?= ($row['MaNCC'] == $thuoc['MaNCC']) ? 'selected' : '' ?>>
-                                                <?= htmlspecialchars($row['TenNCC']) ?>
-                                            </option>
-                                        <?php endwhile; ?>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Tên Thuốc:</label>
-                                    <input type="text" name="ten_thuoc" value="<?= htmlspecialchars($thuoc['TenThuoc']) ?>" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Đơn Giá (VNĐ):</label>
-                                    <input type="number" name="don_gia" min="0" step="1000" 
-                                        value="<?= htmlspecialchars($thuoc['DonGia']) ?>" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Số Lượng:</label>
-                                    <input type="number" name="so_luong" min="1" 
-                                        value="<?= htmlspecialchars($thuoc['SoLuongTonKho']) ?>" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Hạn Sử Dụng:</label>
-                                    <input type="date" name="han_su_dung" value="<?= htmlspecialchars($thuoc['HanSuDung']) ?>" required>
-                                </div>
-
-                                <div class="form-group full-width">
-                                    <label>Công Dụng:</label>
-                                    <textarea name="cong_dung" required><?= htmlspecialchars($thuoc['CongDung']) ?></textarea>
-                                </div>
-
-                                <input type="submit" name="btn_sua" value="Cập Nhật" class="btn-submit">
-                            </form>
-                        </div>
 
                         <!-- Bảng thuốc  -->
                         <table class="table table-bordered table-striped">
@@ -225,7 +151,7 @@ if (isset($_SESSION['thongbao'])) {
                                                     <a href='function/sua_thuoc.php?id=" . htmlspecialchars($row['MaThuoc']) . "' class='btn btn-warning btn-sm'>
                                                         <i class='fas fa-edit'></i> Sửa
                                                     </a>
-                                                    <a href='function/sua_thuoc.php?id=" . htmlspecialchars($row['MaThuoc']) . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Bạn có chắc muốn xóa thuốc này không?\");'>
+                                                    <a href='function/xoa_thuoc.php?id=" . htmlspecialchars($row['MaThuoc']) . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Bạn có chắc muốn xóa thuốc này không?\");'>
                                                         <i class='fas fa-trash'></i> Xóa
                                                     </a>
                                                 </td>
