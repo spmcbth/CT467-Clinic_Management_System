@@ -11,37 +11,37 @@
     <div class="sidebar-menu">
         <ul>
             <li>
-                <a href="quanly_thuoc.php">
+                <a href="/php/quanly_thuoc.php">
                     <i class="fas fa-pills"></i>
                     <span>Quản lý Thuốc</span>
                 </a>
             </li>
             <li>
-                <a href="quanly_loai.php">
+                <a href="/php/quanly_loai.php">
                     <i class="fas fa-list"></i>
                     <span>Quản lý Loại thuốc</span>
                 </a>
             </li>
             <li>
-                <a href="quanly_khachhang.php">
+                <a href="/php/quanly_khachhang.php">
                     <i class="fas fa-users"></i>
                     <span>Quản lý Khách hàng</span>
                 </a>
             </li>
             <li>
-                <a href="quanly_hoadon.php">
+                <a href="/php/quanly_hoadon.php">
                     <i class="fas fa-file-invoice"></i>
                     <span>Quản lý Hóa đơn</span>
                 </a>
             </li>
             <li>
-                <a href="quanly_thongbao.php">
+                <a href="/php/quanly_thongbao.php">
                     <i class="fas fa-bell"></i>
-                    <span>Thông báo Thuốc</span>
+                    <span>Thông báo</span>
                 </a>
             </li>
             <li>
-                <a href="logout.php">
+                <a href="/php/logout.php">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Đăng xuất</span>
                 </a>

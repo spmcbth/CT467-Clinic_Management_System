@@ -4,9 +4,9 @@ if (!isset($_SESSION["username"])) {
     header("Location: login.php");
     exit();
 }
-require_once 'config.php';
-require_once 'function/functions.php';
-require_once 'function/them_HD.php';  
+require_once ROOT_PATH . "/config.php"; 
+require_once ROOT_PATH . '/function/functions.php';
+require_once ROOT_PATH . '/function/them_HD.php';  
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $maHD = $_POST["MaHD"];

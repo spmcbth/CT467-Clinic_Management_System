@@ -26,11 +26,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btn_them'])) {
 
     // Gọi function để thêm thuốc
     if (ThemThuoc($MaThuoc, $MaLoai, $MaHangSX, $MaNCC, $TenThuoc, $CongDung, $DonGia, $SoLuong, $HanSuDung)) {
-        $_SESSION['thongbao'] = "Thêm thuốc thành công!";
+        $_SESSION['thongbao'] = "<div class='alert alert-success'>Thêm thuốc thành công!</div>";
     } else {
-        $_SESSION['thongbao'] = "Lỗi: Không thể thêm thuốc!";
+        $_SESSION['thongbao'] = "<div class='alert alert-danger'>Lỗi thêm thuốc: " . $stmt->error . "</div>";
     }
-
+    
+    $stmt->close();
     header("Location: ../quanly_thuoc.php"); // Quay lại trang quản lý thuốc
     exit();
 }

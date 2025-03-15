@@ -14,7 +14,7 @@ require_once 'function/them_HD.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản Lý Thuốc - Quản Lý Nhà Thuốc</title>
+    <title>Quản Lý Hóa Đơn - Quản Lý Nhà Thuốc</title>
     <link rel="icon" type="image/png" sizes="16x16" href="../../assets/image/icon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
@@ -35,8 +35,8 @@ require_once 'function/them_HD.php';
                     </div>
                     
                     <div class="card p-4 shadow">
-                        <div class="btn-container"> 
-                            <a href="them_hoa_don.php" class="btn btn-primary mb-3">
+                        <div class="btn-container">  
+                            <a href="/php/them_hoa_don.php" class="btn btn-primary mb-3">
                                 <i class="fas fa-plus"></i> Thêm Hóa Đơn
                             </a>
                         </div>

@@ -19,10 +19,10 @@ END $$
 # TRIGGER: THÔNG BÁO THUỐC HẾT HẠN 
 -- Tự động thông báo thuốc sắp hết hạn mỗi ngày 
 DELIMITER $$
-DROP TRIGGER IF EXISTS AutoCheckThuocHetHan $$
+DROP EVENT IF EXISTS AutoCheckThuocHetHan $$
 CREATE EVENT AutoCheckThuocHetHan
 ON SCHEDULE EVERY 1 DAY
-STARTS CURRENT_TIMESTAMP
+STARTS TIMESTAMP(CURDATE(), '06:00:00') -- dùng CURRENT_TIMESTAMP để check ngay lập tức 
 DO
 BEGIN
     INSERT INTO ThongBao (MaThuoc, NoiDung, NgayThongBao)
@@ -38,6 +38,7 @@ BEGIN
         AND tb.NoiDung LIKE '%sắp hết hạn%'
     );
 END $$
+SHOW EVENTS; -- Kiểm tra event có đc gọi hay chưa 
 
 -- Thông báo nếu thuốc thêm vào sắp hết hạn 
 DELIMITER $$
@@ -67,7 +68,6 @@ END $$
 -- CALL LayThuocTheoLoai('kháng sinh');
 
 #		===  LẤY DANH SÁCH THUỐC  === 
-
 DELIMITER $$
 DROP PROCEDURE IF EXISTS LayDanhSachThuoc; $$
 CREATE PROCEDURE LayDanhSachThuoc()
@@ -173,4 +173,32 @@ BEGIN
 END $$
 
 #		=== THÊM HÓA ĐƠN	===
+
+#		=== SỬA THUỐC  ===
+DELIMITER $$
+CREATE PROCEDURE SuaThuoc(
+    IN p_MaThuoc VARCHAR(10),
+    IN p_MaLoai VARCHAR(10),
+    IN p_MaHangSX VARCHAR(10),
+    IN p_MaNCC VARCHAR(10),
+    IN p_TenThuoc VARCHAR(255),
+    IN p_CongDung TEXT,
+    IN p_DonGia DECIMAL(10,2),
+    IN p_SoLuongTonKho INT,
+    IN p_HanSuDung DATE
+)
+BEGIN
+    UPDATE Thuoc
+    SET MaThuoc = p_MaThuoc,
+        MaLoai = p_MaLoai,
+        MaHangSX = p_MaHangSX,
+        MaNCC = p_MaNCC,
+        TenThuoc = p_TenThuoc,
+        CongDung = p_CongDung,
+        DonGia = p_DonGia,
+        SoLuongTonKho = p_SoLuongTonKho,
+        HanSuDung = P_HanSuDung
+    WHERE MaThuoc = p_MaThuoc;
+END $$
+
 

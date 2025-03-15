@@ -1,4 +1,5 @@
 <?php
+    
     $servername = "localhost";  
     $username = "root"; 
     $password = "123456";     
@@ -14,3 +15,5 @@
 
     $conn->set_charset("utf8");
 ?>
+
+
