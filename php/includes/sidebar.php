@@ -17,7 +17,7 @@
                 </a>
             </li>
             <li>
-                <a href="/php/quanly_loai.php">
+                <a href="/php/quanly_loai_thuoc.php">
                     <i class="fas fa-list"></i>
                     <span>Quản lý Loại thuốc</span>
                 </a>

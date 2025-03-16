@@ -10,9 +10,9 @@ require_once 'function/functions.php';
 require_once 'function/them_thuoc.php';  
 
 // Lấy danh sách cho drop dơwn 
-$loaiThuoc = LayDanhSachLoaiThuoc();
-$hangSX = LayDanhSachHangSX();
-$nhaCungCap = LayDanhSachNhaCungCap();
+$loaiThuoc = LayDanhSach('LayDanhSachLoaiThuoc');
+$hangSX = LayDanhSach('LayDanhSachHangSX');
+$nhaCungCap = LayDanhSach('LayDanhSachNhaCungCap');
 
 $thongBao = "";
 if (isset($_SESSION['thongbao'])) {
@@ -31,7 +31,6 @@ if (isset($_SESSION['thongbao'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/table.css">
-    <link rel="stylesheet" href="/assets/css/them_thuoc.css">
 </head>
 <body>
 <div class="wrapper">
@@ -134,7 +133,7 @@ if (isset($_SESSION['thongbao'])) {
                             </thead>
                             <tbody class="text-center">
                                 <?php
-                                $result = LayDanhSachThuoc();
+                                $result = LayDanhSach('LayDanhSachThuoc');
                                 if ($result && $result->num_rows > 0) {
                                     while ($row = $result->fetch_assoc()) {
                                         echo "<tr>

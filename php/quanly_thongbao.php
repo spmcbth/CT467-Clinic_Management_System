@@ -44,7 +44,7 @@ require_once 'function/functions.php';
                             </thead>
                             <tbody class="text-center">
                                 <?php
-                                $result = LayDanhSachThuocHetHan();
+                                $result = LayDanhSach('LayDanhSachThuocHetHan');
                                 if ($result && $result->num_rows > 0) {
                                     while ($row = $result->fetch_assoc()) {
                                         echo "<tr>

@@ -1,3 +1,4 @@
+/* ========== RESET & CẤU TRÚC CHUNG ========== */
 * {
     margin: 0;
     padding: 0;
@@ -21,6 +22,7 @@ html, body {
     flex: 1;
 }
 
+/* ========== SIDEBAR ========== */
 .sidebar {
     width: 250px;
     background-color: #28a745;
@@ -88,6 +90,7 @@ html, body {
     text-align: center;
 }
 
+/* ========== MAIN CONTENT ========== */
 .main-content {
     flex: 1;
     display: flex;
@@ -120,6 +123,7 @@ html, body {
     border-bottom: 1px solid #eee;
 }
 
+/* ========== FOOTER ========== */
 .footer {
     background-color: #343a40;
     color: white;
@@ -135,14 +139,108 @@ html, body {
     margin-bottom: 0;
 }
 
-@media (max-width: 768px) {
-    .content-wrapper {
-        flex-direction: column;
-    }
-    
-    .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-    }
+/* ========== FORM THÊM THUỐC ========== */
+.form-container {
+    background: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    display: none;
 }
+
+.btn-container {
+    margin-bottom: 20px;
+}
+
+.btn-them-thuoc {
+    background: #28a745;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.btn-them-thuoc:hover {
+    background: #218838;
+}
+
+.form-thuoc {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.form-group textarea {
+    height: 80px;
+}
+
+.form-group.full-width {
+    grid-column: span 2;
+}
+
+.btn-submit {
+    grid-column: span 2;
+    background: #28a745;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-submit:hover {
+    background: #218838;
+}
+
+/* ========== BẢNG DANH SÁCH THUỐC ========== */
+.table-container {
+    background: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+table tr:hover {
+    background-color: #f5f5f5;
+}
+
+

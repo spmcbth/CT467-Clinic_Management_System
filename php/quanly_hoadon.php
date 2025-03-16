@@ -6,6 +6,12 @@ if (!isset($_SESSION["username"])) {
 }
 require_once 'config.php';
 require_once 'function/functions.php';
+
+$thongBao = "";
+if (isset($_SESSION['thongbao'])) {
+    $thongBao = $_SESSION['thongbao'];
+    unset($_SESSION['thongbao']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +24,6 @@ require_once 'function/functions.php';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/table.css">
-    <link rel="stylesheet" href="../assets/css/them_thuoc.css">
 </head>
 
 <body>
@@ -38,8 +43,12 @@ require_once 'function/functions.php';
                             <a href="function/them_HD.php" class="btn btn-primary mb-3">
                                 <i class="fas fa-plus"></i> Thêm Hóa Đơn
                             </a>
-                            <a href="function/export_excel.php" class="btn btn-success">📥 Xuất Excel</a>
+                            <a href="function/export_excel.php" class="btn btn-export-excel mb-3">
+                                <i class="fas fa-file-excel"></i> Xuất Excel
+                            </a>
                         </div>
+                        <!-- Thông báo -->
+                        <?php if (!empty($thongBao)) echo $thongBao; ?>
 
                         <table class="table table-bordered table-striped table-hover">
                             <thead class="table-dark text-center">
@@ -53,7 +62,7 @@ require_once 'function/functions.php';
                             </thead>
                             <tbody class="text-center">
                                 <?php
-                                $result = LayDanhSachHoaDon();
+                                $result = LayDanhSach('LayDanhSachHoaDon');
                                 if ($result && $result->num_rows > 0) {
                                     while ($row = $result->fetch_assoc()) {
                                         echo "<tr>

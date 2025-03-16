@@ -16,7 +16,10 @@ $MaThuoc = $_GET['id'];
 $stmt = $conn->prepare("SELECT * FROM Thuoc WHERE MaThuoc = ?");
 $stmt->bind_param("s", $MaThuoc);
 $stmt->execute();
-$thuoc = $stmt->get_result()->fetch_assoc();
+$result = $stmt->get_result();  // Store the result first
+$thuoc = $result->fetch_assoc();
+$result->free();  // Now free the result
+$stmt->close();   
 
 if (!$thuoc) {
     $_SESSION['thongbao'] = "Không tìm thấy thuốc!";
@@ -25,9 +28,9 @@ if (!$thuoc) {
 }
 
 // Lấy danh sách dropdown
-$loaiThuoc = $conn->query("SELECT * FROM LoaiThuoc ORDER BY TenLoai");
-$hangSX = $conn->query("SELECT * FROM HangSanXuat ORDER BY TenHang");
-$nhaCungCap = $conn->query("SELECT * FROM NhaCungCap ORDER BY TenNCC");
+$loaiThuoc = LayDanhSach('LayDanhSachLoaiThuoc');
+$hangSX = LayDanhSach('LayDanhSachHangSX');
+$nhaCungCap = LayDanhSach('LayDanhSachNhaCungCap');
 $thongBao = isset($_SESSION['thongbao']) ? $_SESSION['thongbao'] : "";
 
 if (isset($_SESSION['thongbao'])) {
@@ -55,10 +58,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (SuaThuoc($MaThuoc, $MaLoai, $MaHangSX, $MaNCC, $TenThuoc, $CongDung, $DonGia, $SoLuong, $HanSuDung)) {
             $_SESSION['thongbao'] = "<div class='alert alert-success'>Cập nhật thuốc thành công!</div>";
         } else {
-            $_SESSION['thongbao'] = "<div class='alert alert-danger'>Lỗi cập nhật thuốc: " . $stmt->error . "</div>";
+            $_SESSION['thongbao'] = "<div class='alert alert-danger'>Lỗi cập nhật thuốc: " . $conn->error . "</div>";
         }
 
-        $stmt->close();
         header("Location: ../quanly_thuoc.php");
         exit();           
     }    
@@ -74,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="icon" type="image/png" sizes="16x16" href="../../assets/image/icon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" href="/assets/css/sua_thuoc.css">
+    <link rel="stylesheet" href="/assets/css/form_sua.css">
 </head>
 <body>
 <div class="wrapper">
@@ -167,6 +169,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
     <?php include '../includes/footer.php'; ?>
 </div>
+
+<?php
+    // Free result sets at the end of the script
+    if (isset($loaiThuoc) && $loaiThuoc) $loaiThuoc->free();
+    if (isset($hangSX) && $hangSX) $hangSX->free();
+    if (isset($nhaCungCap) && $nhaCungCap) $nhaCungCap->free();
+?>
 </body>
 </html>
 

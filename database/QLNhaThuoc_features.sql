@@ -22,7 +22,6 @@ BEGIN
         AND tb.NoiDung LIKE '%sắp hết hạn%'
     );
 END $$
--- SHOW EVENTS; -- Kiểm tra event có đc gọi hay chưa 
 
 -- Thông báo nếu thuốc thêm vào sắp hết hạn 
 DELIMITER $$
@@ -38,95 +37,7 @@ BEGIN
     END IF;
 END $$
 
-            /* === LẤY DANH SÁCH THUỐC === */
-DELIMITER $$
-DROP PROCEDURE IF EXISTS LayDanhSachThuoc; $$
-CREATE PROCEDURE LayDanhSachThuoc()
-BEGIN
-	SELECT t.MaThuoc, t.TenThuoc, lt.TenLoai, t.CongDung, t.DonGia, t.SoLuongTonKho, lt.DonViTinh, t.HanSuDung
-	FROM Thuoc t
-	JOIN LoaiThuoc lt ON t.MaLoai = lt.MaLoai
-	JOIN NhaCungCap ncc ON t.MaNCC = ncc.MaNCC
-	JOIN HangSanXuat hsx ON t.MaHangSX = hsx.MaHangSX
-    ORDER BY t.MaThuoc;
-END $$
--- CALL LayDanhSachThuoc()
-
-            /* === CÁC HÀM LẤY DANH SÁCH === */
--- danh sách Khách Hàng 
-DELIMITER $$
-CREATE PROCEDURE LayDanhSachKhachHang()
-BEGIN
-	SELECT * FROM KhachHang;
-END $$
--- CALL LayDanhSachKhachHang()
-
--- danh sách Hóa Đơn 
-DELIMITER $$
-CREATE PROCEDURE LayDanhSachHoaDon()
-BEGIN
-	SELECT * FROM HoaDon;
-END $$
--- CALL LayDanhSachHoaDon()
-
--- danh sách thông báo thuốc sắp hết hạn
-DELIMITER $$
-CREATE PROCEDURE LayDanhSachThuocHetHan()
-BEGIN
-	SELECT * FROM ThongBao;
-END $$
--- CALL LayDanhSachThuocHetHan()
-
--- danh sách loại thuốc
-DELIMITER $$
-CREATE PROCEDURE LayDanhSachLoaiThuoc()
-BEGIN
-	SELECT * FROM LoaiThuoc;
-END $$
--- CALL LayDanhSachLoaiThuoc()
-
--- danh sách hãng sản xuất 
-DELIMITER $$
-CREATE PROCEDURE LayDanhSachHangSX()
-BEGIN
-	SELECT * FROM HangSanXuat;
-END $$
--- CALL LayDanhSachHangSanXuat()
-
--- danh sách nhà cung cấp 
-DELIMITER $$
-CREATE PROCEDURE LayDanhSachNhaCungCap()
-BEGIN
-	SELECT * FROM NhaCungCap;
-END $$
--- CALL LayDanhSachNhaCungCap()
-
-            /* === QUẢN LÝ HÓA ĐƠN === */
--- Lấy chi tiết hóa đơn theo mã
-DELIMITER $$
-DROP PROCEDURE IF EXISTS LayChiTietHoaDon $$
-CREATE PROCEDURE LayChiTietHoaDon(IN p_MaHD VARCHAR(10))
-BEGIN
-	SELECT Thuoc.TenThuoc, ChiTietHoaDon.SoLuongBan, ChiTietHoaDon.GiaBan
-	FROM ChiTietHoaDon
-	JOIN Thuoc ON ChiTietHoaDon.MaThuoc = Thuoc.MaThuoc
-	WHERE ChiTietHoaDon.MaHD = p_MaHD;
-END $$
--- CALL LayChiTietHoaDon('HD001')
-
---  Lấy hóa đơn theo mã 
-DELIMITER $$
-DROP PROCEDURE IF EXISTS LayHoaDon $$
-CREATE PROCEDURE LayHoaDon(IN p_MaHD VARCHAR(10))
-BEGIN
-	SELECT HoaDon.MaHD, KhachHang.TenKH, HoaDon.NgayLap, HoaDon.TongTien
-	FROM HoaDon
-	JOIN KhachHang ON HoaDon.MaKH = KhachHang.MaKH
-	WHERE HoaDon.MaHD = p_MaHD;
-END $$
--- CALL LayHoaDon('HD001')
-
--- Giảm số lượng thuốc khi thêm số lượng thuốc vào hóa đơn 
+-- Giảm số lượng thuốc khi thêm vào hóa đơn 
 DELIMITER $$
 DROP TRIGGER IF EXISTS GiamSoLuongThuoc $$
 CREATE TRIGGER GiamSoLuongThuoc
@@ -138,7 +49,87 @@ BEGIN
     WHERE MaThuoc = NEW.MaThuoc;
 END $$
 
-            /* === THÊM THUỐC === */
+            /* === CÁC HÀM LẤY DANH SÁCH === */
+-- Danh sách thuốc
+DELIMITER $$
+DROP PROCEDURE IF EXISTS LayDanhSachThuoc; $$
+CREATE PROCEDURE LayDanhSachThuoc()
+BEGIN
+	SELECT t.MaThuoc, t.TenThuoc, lt.TenLoai, t.CongDung, t.DonGia, t.SoLuongTonKho, lt.DonViTinh, t.HanSuDung
+	FROM Thuoc t
+	JOIN LoaiThuoc lt ON t.MaLoai = lt.MaLoai
+	JOIN NhaCungCap ncc ON t.MaNCC = ncc.MaNCC
+	JOIN HangSanXuat hsx ON t.MaHangSX = hsx.MaHangSX
+    ORDER BY t.MaThuoc;
+END $$
+
+-- Danh sách Khách Hàng 
+DELIMITER $$
+CREATE PROCEDURE LayDanhSachKhachHang()
+BEGIN
+	SELECT * FROM KhachHang;
+END $$
+
+-- Danh sách Hóa Đơn 
+DELIMITER $$
+CREATE PROCEDURE LayDanhSachHoaDon()
+BEGIN
+	SELECT * FROM HoaDon;
+END $$
+
+-- Danh sách chi tiết hóa đơn
+DELIMITER $$
+DROP PROCEDURE IF EXISTS LayChiTietHoaDon $$
+CREATE PROCEDURE LayChiTietHoaDon(IN p_MaHD VARCHAR(10))
+BEGIN
+	SELECT Thuoc.TenThuoc, ChiTietHoaDon.SoLuongBan, ChiTietHoaDon.GiaBan
+	FROM ChiTietHoaDon
+	JOIN Thuoc ON ChiTietHoaDon.MaThuoc = Thuoc.MaThuoc
+	WHERE ChiTietHoaDon.MaHD = p_MaHD;
+END $$
+
+-- Danh sách thông báo thuốc sắp hết hạn
+DELIMITER $$
+CREATE PROCEDURE LayDanhSachThuocHetHan()
+BEGIN
+	SELECT * FROM ThongBao;
+END $$
+
+-- Danh sách loại thuốc
+DELIMITER $$
+DROP PROCEDURE IF EXISTS LayDanhSachLoaiThuoc $$
+CREATE PROCEDURE LayDanhSachLoaiThuoc()
+BEGIN
+	SELECT * FROM LoaiThuoc;
+END $$
+
+-- Danh sách hãng sản xuất 
+DELIMITER $$
+CREATE PROCEDURE LayDanhSachHangSX()
+BEGIN
+	SELECT * FROM HangSanXuat;
+END $$
+
+-- Danh sách nhà cung cấp 
+DELIMITER $$
+CREATE PROCEDURE LayDanhSachNhaCungCap()
+BEGIN
+	SELECT * FROM NhaCungCap;
+END $$
+
+-- Lấy hóa đơn theo mã 
+DELIMITER $$
+DROP PROCEDURE IF EXISTS LayHoaDon $$
+CREATE PROCEDURE LayHoaDon(IN p_MaHD VARCHAR(10))
+BEGIN
+	SELECT HoaDon.MaHD, KhachHang.TenKH, HoaDon.NgayLap, HoaDon.TongTien
+	FROM HoaDon
+	JOIN KhachHang ON HoaDon.MaKH = KhachHang.MaKH
+	WHERE HoaDon.MaHD = p_MaHD;
+END $$
+
+            /* === QUẢN LÝ THUỐC === */
+-- Thêm thuốc
 DELIMITER $$
 CREATE PROCEDURE ThemThuoc(
     IN p_MaThuoc VARCHAR(10),
@@ -156,7 +147,7 @@ BEGIN
     VALUES (p_MaThuoc, p_MaLoai, p_MaHangSX, p_MaNCC, p_TenThuoc, p_CongDung, p_DonGia, p_SoLuongTonKho, p_HanSuDung);
 END $$
 
-            /* === SỬA THUỐC === */
+-- Sửa thuốc
 DELIMITER $$
 DROP PROCEDURE IF EXISTS SuaThuoc $$
 CREATE PROCEDURE SuaThuoc(
@@ -172,26 +163,92 @@ CREATE PROCEDURE SuaThuoc(
 )
 BEGIN
     UPDATE Thuoc
-    SET MaThuoc = p_MaThuoc,
-        MaLoai = p_MaLoai,
+    SET MaLoai = p_MaLoai,
         MaHangSX = p_MaHangSX,
         MaNCC = p_MaNCC,
         TenThuoc = p_TenThuoc,
         CongDung = p_CongDung,
         DonGia = p_DonGia,
         SoLuongTonKho = p_SoLuongTonKho,
-        HanSuDung = P_HanSuDung
+        HanSuDung = p_HanSuDung
     WHERE MaThuoc = p_MaThuoc;
 END $$
 
-            /* === XÓA THUỐC === */
+-- Xóa thuốc
 DELIMITER $$
 DROP PROCEDURE IF EXISTS XoaThuoc $$
 CREATE PROCEDURE XoaThuoc(IN p_MaThuoc VARCHAR(10))
 BEGIN
-    -- Xóa dữ liệu liên quan trong bảng ChiTietHoaDon trước (nếu có)
     DELETE FROM ChiTietHoaDon WHERE MaThuoc = p_MaThuoc;
-    -- Sau đó xóa thuốc trong bảng Thuoc
     DELETE FROM Thuoc WHERE MaThuoc = p_MaThuoc;
 END $$ 
 
+            /* === QUẢN LÝ LOẠI THUỐC === */
+-- Thêm loại thuốc
+DELIMITER $$
+CREATE PROCEDURE ThemLoaiThuoc (
+    IN p_MaLoai VARCHAR(10),
+    IN p_TenLoai VARCHAR(100),
+    IN p_DonViTinh VARCHAR(20)
+)
+BEGIN
+    INSERT INTO LoaiThuoc (MaLoai, TenLoai, DonViTinh)
+    VALUES (p_MaLoai, p_TenLoai, p_DonViTinh);
+END $$
+
+-- Sửa loại thuốc
+DELIMITER $$
+CREATE PROCEDURE SuaLoaiThuoc(
+    IN p_MaLoai VARCHAR(10),
+    IN p_TenLoai VARCHAR(255),
+    IN p_DonViTinh VARCHAR(50)
+)
+BEGIN
+    UPDATE LoaiThuoc 
+    SET TenLoai = p_TenLoai, 
+        DonViTinh = p_DonViTinh
+    WHERE MaLoai = p_MaLoai;
+END $$
+
+-- Xóa loại thuốc
+DELIMITER $$
+DROP PROCEDURE IF EXISTS XoaLoaiThuoc $$
+CREATE PROCEDURE XoaLoaiThuoc(IN p_MaLoai VARCHAR(10))
+BEGIN
+    DELETE FROM LoaiThuoc WHERE MaLoai = p_MaLoai;
+END $$ 
+
+            /* === QUẢN LÝ KHÁCH HÀNG === */
+-- Thêm khách hàng
+DELIMITER $$
+CREATE PROCEDURE ThemKhachHang (
+    IN p_MaKH VARCHAR(10),
+    IN p_TenKH VARCHAR(100),
+    IN p_SoDienThoai VARCHAR(15),
+    IN p_DiaChi VARCHAR(200)
+)
+BEGIN
+    INSERT INTO KhachHang (MaKH, TenKH, SoDienThoai, DiaChi)
+    VALUES (p_MaKH, p_TenKH, p_SoDienThoai, p_DiaChi);
+END $$
+
+-- Sửa khách hàng
+DELIMITER $$
+CREATE PROCEDURE SuaKhachHang (
+    IN p_MaKH VARCHAR(10),
+    IN p_TenKH VARCHAR(100),
+    IN p_SoDienThoai VARCHAR(15),
+    IN p_DiaChi VARCHAR(200)
+)
+BEGIN
+    UPDATE KhachHang 
+    SET TenKH = p_TenKH, SoDienThoai = p_SoDienThoai, DiaChi = p_DiaChi
+    WHERE MaKH = p_MaKH;
+END $$
+
+-- Xóa khách hàng
+DELIMITER $$
+CREATE PROCEDURE XoaKhachHang (IN p_MaKH VARCHAR(10))
+BEGIN
+    DELETE FROM KhachHang WHERE MaKH = p_MaKH;
+END $$

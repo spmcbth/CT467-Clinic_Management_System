@@ -2,6 +2,7 @@
 .wrapper {
     display: flex;
     min-height: 100vh;
+    background: #f8f9fa;
 }
 
 .content-wrapper {
@@ -14,7 +15,6 @@
 .main-content {
     flex-grow: 1;
     padding: 20px;
-    background: #f8f9fa;
 }
 
 /* Phần container chứa nội dung */
@@ -27,27 +27,28 @@
 .page-header {
     text-align: center;
     text-transform: uppercase;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
     color: #28a745;
     border-bottom: 2px solid #28a745;
-    padding-bottom: 10px;
+    padding-bottom: 8px;
     margin-bottom: 20px;
 }
 
 /* Card chứa thông tin hóa đơn */
 .card {
     background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
 /* Thông tin hóa đơn */
 .card h4 {
-    font-size: 18px;
-    margin-bottom: 10px;
-    color: #495057;
+    font-size: 17px;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 500;
 }
 
 /* Bảng danh sách thuốc */
@@ -55,55 +56,54 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 15px;
+    background: white;
 }
 
 .table th, .table td {
-    padding: 12px;
+    padding: 10px;
     border-bottom: 1px solid #dee2e6;
     text-align: center;
 }
 
 .table th {
-    background-color: #f8f9fa;
+    background-color: #f1f3f5;
     color: #495057;
     font-weight: 600;
     text-transform: uppercase;
-    white-space: nowrap;
 }
 
 .table tbody tr:hover {
-    background-color: rgba(40, 167, 69, 0.1);
+    background-color: rgba(40, 167, 69, 0.05);
+}
+
+/* Nút bấm */
+.btn {
+    display: inline-block;
+    padding: 8px 12px;
+    margin-top: 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
 }
 
 /* Nút quay lại */
 .btn-secondary {
-    display: inline-block;
-    padding: 10px 15px;
     background-color: #6c757d;
     color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    font-weight: bold;
-    transition: background 0.3s;
 }
 
 .btn-secondary:hover {
     background-color: #5a6268;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .container {
-        padding: 10px;
-    }
+/* Nút xuất PDF */
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
 
-    .table th, .table td {
-        font-size: 14px;
-        padding: 8px;
-    }
-
-    .btn-secondary {
-        font-size: 14px;
-        padding: 8px 12px;
-    }
+.btn-primary:hover {
+    background-color: #0056b3;
 }

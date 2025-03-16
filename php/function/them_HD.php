@@ -84,19 +84,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btn_them'])) {
         mysqli_commit($conn);
 
         $_SESSION['thongbao'] = "<div class='alert alert-success'>Thêm hóa đơn thành công!</div>";
-    } catch (Exception $e) {
-        mysqli_rollback($conn); // Rollback nếu có lỗi
-        $_SESSION['thongbao'] = "<div class='alert alert-danger'>{$e->getMessage()}</div>";
-        error_log("Lỗi thêm hóa đơn: " . $e->getMessage());
-    }
+        } catch (Exception $e) {
+            mysqli_rollback($conn); // Rollback nếu có lỗi
+            $_SESSION['thongbao'] = "<div class='alert alert-danger'>{$e->getMessage()}</div>";
+            error_log("Lỗi thêm hóa đơn: " . $e->getMessage());
+        }
 
     header("Location: ../quanly_hoadon.php");
     exit();
 }
 
 // Lấy danh sách khách hàng và thuốc
-$dsKhachHang = LayDanhSachKhachHang();
-$dsThuoc = LayDanhSachThuoc();
+$dsKhachHang = LayDanhSach('LayDanhSachKhachHang');
+$dsThuoc = LayDanhSach('LayDanhSachThuoc');
 ?>
 
 <!DOCTYPE html>

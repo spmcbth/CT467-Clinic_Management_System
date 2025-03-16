@@ -67,8 +67,13 @@ try {
             // In chi tiết từng sản phẩm của hóa đơn
             $sheet->setCellValue('D' . $rowNum, $row['TenThuoc']);
             $sheet->setCellValue('E' . $rowNum, $row['SoLuongBan']);
-            $sheet->setCellValue('F' . $rowNum, number_format($row['GiaBan'], 0, ',', '.'));
-            $sheet->setCellValue('G' . $rowNum, number_format($row['ThanhTien'], 0, ',', '.'));
+            $sheet->setCellValueExplicit('F' . $rowNum, $row['GiaBan'], \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC);
+            $sheet->setCellValueExplicit('G' . $rowNum, $row['ThanhTien'], \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC);
+            
+            // Định dạng cột tiền tệ theo kiểu 10,000
+            $sheet->getStyle('F' . $rowNum)->getNumberFormat()->setFormatCode('#,##0');
+            $sheet->getStyle('G' . $rowNum)->getNumberFormat()->setFormatCode('#,##0');
+            
 
             $rowNum++; // Tăng dòng tiếp theo
         }
