@@ -99,20 +99,49 @@ if (!function_exists('XoaThuoc')) {
     }
 }
 
-// HÓA ĐƠN 
-if (!function_exists('ThemHoaDon')) {
-    function ThemHoaDon($conn, $maKH, $ngayLap, $tongTien) {
-        $query = "INSERT INTO HoaDon (MaKH, NgayLap, TongTien) VALUES (?, ?, ?)";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param("ssd", $maKH, $ngayLap, $tongTien);
-    
-        if ($stmt->execute()) {
-            return $conn->insert_id; // Trả về MaHD vừa tạo
-        } else {
-            return false;
-        }
-    }
+#      ===  HÓA ĐƠN  ===
+// Thêm hóa đơn
+function ThemHoaDon($MaHD, $MaKH, $NgayLap, $TongTien) {
+    global $conn;
+    $query = "INSERT INTO HoaDon (MaHD, MaKH, NgayLap, TongTien) VALUES (?, ?, ?, ?)";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "sssd", $MaHD, $MaKH, $NgayLap, $TongTien);
+    return mysqli_stmt_execute($stmt);
 }
+// Thêm chi tiết hóa đơn
+function ThemChiTietHoaDon($MaCTHD, $MaHD, $MaThuoc, $SoLuongBan, $GiaBan) {
+    global $conn;
+    $query = "INSERT INTO ChiTietHoaDon (MaCTHD, MaHD, MaThuoc, SoLuongBan, GiaBan) VALUES (?, ?, ?, ?, ?)";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "sssid", $MaCTHD, $MaHD, $MaThuoc, $SoLuongBan, $GiaBan);
+    return mysqli_stmt_execute($stmt);
+}
+// Cập nhật tổng tiền
+function CapNhatTongTienHoaDon($MaHD, $TongTien) {
+    global $conn;
+    $query = "UPDATE HoaDon SET TongTien = ? WHERE MaHD = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "ds", $TongTien, $MaHD);
+    return mysqli_stmt_execute($stmt);
+}
+// Cập nhật số lượng thuốc
+function CapNhatSoLuongThuoc($MaThuoc, $SoLuong) {
+    global $conn;
+    
+    // Kiểm tra số lượng tồn kho
+    $query = "SELECT SoLuongTonKho FROM Thuoc WHERE MaThuoc = '$MaThuoc'";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+    
+    if ($row['SoLuongTonKho'] < $SoLuong) {
+        return false; // Không đủ số lượng
+    }
+    
+    // Cập nhật số lượng
+    $query = "UPDATE Thuoc SET SoLuongTonKho = SoLuongTonKho - $SoLuong WHERE MaThuoc = '$MaThuoc'";
+    return mysqli_query($conn, $query);
+}
+
 
 if (!function_exists('LayHoaDon')) {
     function LayHoaDon($conn, $maHD) {
@@ -145,25 +174,9 @@ if (!function_exists('LayChiTietHoaDon')) {
     }
 }
 
-if (!function_exists('ThemChiTietHoaDon')) {
-    function ThemChiTietHoaDon($conn, $maHD, $maThuoc, $soLuongBan, $giaBan) {
-        $query = "INSERT INTO ChiTietHoaDon (MaHD, MaThuoc, SoLuongBan, GiaBan) VALUES (?, ?, ?, ?)";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param("ssid", $maHD, $maThuoc, $soLuongBan, $giaBan);
-    
-        return $stmt->execute();
-    }
-}
 
-if (!function_exists('CapNhatTongTienHoaDon')) {
-    function CapNhatTongTienHoaDon($maHD, $tongTien) {
-        global $conn;
-        $query = "UPDATE HoaDon SET TongTien = ? WHERE MaHD = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param("is", $tongTien, $maHD);
-        return $stmt->execute();
-    }
-}
+
+
 
 
 ?>

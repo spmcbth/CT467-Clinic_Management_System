@@ -1,21 +1,5 @@
 USE QLNhaThuoc;
 
--- FUNCTION: trả về số lượng thuốc còn lại trong kho của một loại thuốc 
-DELIMITER $$
-CREATE FUNCTION LaySoLuongThuoc(ma_thuoc VARCHAR(10))
-RETURNS INT
-DETERMINISTIC
-BEGIN
-    DECLARE soLuong INT;
-    
-    SELECT SoLuongTonKho INTO soLuong
-    FROM Thuoc
-    WHERE MaThuoc = ma_thuoc;
-    
-    RETURN IFNULL(soLuong, 0); -- Trả về 0 nếu không tìm thấy 
-END $$
--- SELECT LaySoLuongThuoc('T001') AS SoLuongTon;
-
 # TRIGGER: THÔNG BÁO THUỐC HẾT HẠN 
 -- Tự động thông báo thuốc sắp hết hạn mỗi ngày 
 DELIMITER $$
@@ -53,19 +37,6 @@ BEGIN
                 NOW());
     END IF;
 END $$
-
--- STORED PROCEDUCE: Lấy danh sách thuốc theo loại
-DELIMITER $$
-CREATE PROCEDURE LayThuocTheoLoai(IN ten_loai VARCHAR(100))
-BEGIN
-    SELECT t.MaThuoc, t.TenThuoc, t.CongDung, t.DonGia, t.SoLuongTonKho, t.HanSuDung, h.TenHang AS NhaSanXuat, n.TenNCC AS NhaCungCap
-    FROM Thuoc t
-    JOIN LoaiThuoc l ON t.MaLoai = l.MaLoai
-    JOIN HangSanXuat h ON t.MaHangSX = h.MaHangSX
-    JOIN NhaCungCap n ON t.MaNCC = n.MaNCC
-    WHERE l.TenLoai LIKE CONCAT('%', ten_loai, '%');
-END $$
--- CALL LayThuocTheoLoai('kháng sinh');
 
 #		===  LẤY DANH SÁCH THUỐC  === 
 DELIMITER $$
@@ -142,7 +113,7 @@ BEGIN
 END $$
 -- CALL LayChiTietHoaDon('HD001')
 
--- 		===  LẤY CHI TIẾT HÓA ĐƠN  === 
+--  lấy hóa đơn theo mã 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS LayHoaDon $$
 CREATE PROCEDURE LayHoaDon(IN p_MaHD VARCHAR(10))
@@ -172,7 +143,17 @@ BEGIN
     VALUES (p_MaThuoc, p_MaLoai, p_MaHangSX, p_MaNCC, p_TenThuoc, p_CongDung, p_DonGia, p_SoLuongTonKho, p_HanSuDung);
 END $$
 
-#		=== THÊM HÓA ĐƠN	===
+#		=== HÓA ĐƠN  ===
+DELIMITER $$
+DROP TRIGGER IF EXISTS GiamSoLuongThuoc $$
+CREATE TRIGGER GiamSoLuongThuoc
+AFTER INSERT ON ChiTietHoaDon
+FOR EACH ROW
+BEGIN
+    UPDATE Thuoc 
+    SET SoLuongTonKho = SoLuongTonKho - NEW.SoLuongBan
+    WHERE MaThuoc = NEW.MaThuoc;
+END $$
 
 #		=== SỬA THUỐC  ===
 DELIMITER $$

@@ -57,14 +57,6 @@ require_once 'function/functions.php';
                                                 <td class='ten-KH'>" . htmlspecialchars($row['TenKH']) . "</td>
                                                 <td class='so-dien-thoai'>" . htmlspecialchars($row['SoDienThoai']) . "</td>
                                                 <td class='dia-chi'>" . htmlspecialchars($row['DiaChi']) . "</td>
-                                                <td class='button-center'>
-                                                    <a href='sua_KH.php?id=" . htmlspecialchars($row['MaKH']) . "' class='btn btn-warning btn-sm'>
-                                                        <i class='fas fa-edit'></i> Sửa
-                                                    </a>
-                                                    <a href='xoa_KH.php?id=" . htmlspecialchars($row['MaKH']) . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Bạn có chắc muốn xóa khách hàng này không?\");'>
-                                                        <i class='fas fa-trash'></i> Xóa
-                                                    </a>
-                                                </td>
                                             </tr>";
                                     }
                                 } else {

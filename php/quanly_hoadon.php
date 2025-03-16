@@ -6,7 +6,6 @@ if (!isset($_SESSION["username"])) {
 }
 require_once 'config.php';
 require_once 'function/functions.php';
-require_once 'function/them_HD.php';  
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +35,7 @@ require_once 'function/them_HD.php';
                     
                     <div class="card p-4 shadow">
                         <div class="btn-container">  
-                            <a href="/php/them_hoa_don.php" class="btn btn-primary mb-3">
+                            <a href="function/them_HD.php" class="btn btn-primary mb-3">
                                 <i class="fas fa-plus"></i> Thêm Hóa Đơn
                             </a>
                         </div>
@@ -64,12 +63,6 @@ require_once 'function/them_HD.php';
                                                <td class='button-center'>
                                                     <a href='./function/xem_chi_tiet_hoa_don.php?id=" . htmlspecialchars($row['MaHD']) . "' class='btn btn-view btn-sm'>
                                                         <i class='fas fa-edit'></i> Xem
-                                                    </a>
-                                                    <a href='./function/sua_HD.php?id=" . htmlspecialchars($row['MaHD']) . "' class='btn btn-warning btn-sm'>
-                                                        <i class='fas fa-edit'></i> Sửa
-                                                    </a>
-                                                    <a href='function/xoa_HD.php?id=" . htmlspecialchars($row['MaHD']) . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Bạn có chắc muốn xóa hóa đơn này không?\");'>
-                                                        <i class='fas fa-trash'></i> Xóa
                                                     </a>
                                                 </td>
                                             </tr>";
