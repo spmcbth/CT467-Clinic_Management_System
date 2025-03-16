@@ -93,7 +93,7 @@ $database = "QLNhaThuoc";
 
 ### 5.3. Chạy Dự Án Bằng XAMPP
 1. Mở **XAMPP Control Panel**, khởi động **Apache** và **MySQL**.
-2. Di chuyển mã nguồn vào thư mục **htdocs** của XAMPP (`C:\xampp\htdocs\[ten_du_an]`).
+2. Di chuyển mã nguồn vào thư mục **htdocs** của XAMPP (`C:\\xampp\\htdocs\\[ten_du_an]`).
 3. Mở trình duyệt và nhập:
     ```bash
     http://localhost/[ten_du_an]
@@ -114,4 +114,3 @@ $database = "QLNhaThuoc";
     ```
 
 ---
-
