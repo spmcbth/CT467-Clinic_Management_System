@@ -37,7 +37,7 @@
      ```
    - Nhấn **Go** để import CSDL.
 
-### 2.1. Dùng MySQL Workbench 
+### 2.2. Dùng MySQL Workbench 
 1. Mở **MySQL Workbench** 
 2. Chọn lần lượt các file SQL sau và nhấn Run (Ctrl + Shift + Enter):
     ```bash
