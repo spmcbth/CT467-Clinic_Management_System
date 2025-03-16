@@ -23,6 +23,8 @@
 ---
 
 ## 2. Cài đặt Cơ Sở Dữ Liệu (MySQL)
+
+### 2.1. Dùng phpMyAdmin (XAMPP)
 1. Truy cập **phpMyAdmin** tại [http://localhost/phpmyadmin](http://localhost/phpmyadmin).
 2. Nhấn **New**, nhập tên CSDL: **QLNhaThuoc**, nhấn **Create**.
 3. Import file SQL:
@@ -35,6 +37,14 @@
      ```
    - Nhấn **Go** để import CSDL.
 
+### 2.1. Dùng MySQL Workbench 
+1. Mở **MySQL Workbench** 
+2. Chọn lần lượt các file SQL sau và nhấn Run (Ctrl + Shift + Enter):
+    ```bash
+     QLNhaThuoc_db.sql
+     QLNhaThuoc_data.sql
+     QLNhaThuoc_features.sql
+     ```
 ---
 
 ## 3. Cài Đặt Composer trên Windows (Nếu chưa có)
