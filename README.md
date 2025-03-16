@@ -74,3 +74,44 @@ $servername = "localhost";
 $username = "root"; // Tài khoản MySQL của bạn 
 $password = ""; // Nhập mật khẩu nếu có
 $database = "QLNhaThuoc";
+```
+
+---
+
+### 5.2. Chạy Dự Án Bằng PHP Built-in Server
+1. Mở terminal hoặc command prompt tại thư mục dự án.
+2. Chạy lệnh sau để khởi động PHP built-in server:
+   ```bash
+   php -S localhost:8080
+   ```
+3. Mở trình duyệt và truy cập:
+   ```bash
+   http://localhost:8080
+   ```
+
+---
+
+### 5.3. Chạy Dự Án Bằng XAMPP
+1. Mở **XAMPP Control Panel**, khởi động **Apache** và **MySQL**.
+2. Di chuyển mã nguồn vào thư mục **htdocs** của XAMPP (`C:\xampp\htdocs\[ten_du_an]`).
+3. Mở trình duyệt và nhập:
+    ```bash
+    http://localhost/[ten_du_an]
+    ```
+
+---
+
+## 6. Xử Lý Lỗi Đường Dẫn
+- Nếu website báo lỗi **đường dẫn**, hãy thay các dòng:
+    ```php
+    include 'file.php';
+    require_once 'file.php';
+    ```
+  **Bằng đường dẫn tuyệt đối**:
+    ```php
+    include __DIR__ . '/file.php';
+    require_once __DIR__ . '/file.php';
+    ```
+
+---
+
