@@ -72,6 +72,7 @@ if (!$hoaDon) {
                         </table>
 
                         <a href="../quanly_hoadon.php" class="btn btn-secondary mt-3">Quay Lại</a>
+                        <a href="export_pdf.php?id=<?= htmlspecialchars($hoaDon['MaHD']) ?>" class="btn btn-primary mt-3">Xuất Hóa Đơn PDF</a>
                     </div>
                 </div>
             </div>

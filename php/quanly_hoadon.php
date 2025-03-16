@@ -38,6 +38,7 @@ require_once 'function/functions.php';
                             <a href="function/them_HD.php" class="btn btn-primary mb-3">
                                 <i class="fas fa-plus"></i> Thêm Hóa Đơn
                             </a>
+                            <a href="function/export_excel.php" class="btn btn-success">📥 Xuất Excel</a>
                         </div>
 
                         <table class="table table-bordered table-striped table-hover">

@@ -1,3 +1,2 @@
-/vendor/mpdf/
-php/export_pdf.php
+/vendor
 php/test.php
