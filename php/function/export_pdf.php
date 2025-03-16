@@ -1,5 +1,6 @@
 <?php
-ob_start();
+ob_start(); // Xóa buffer để tránh lỗi file bị hỏng
+
 require_once '../../vendor/tecnickcom/tcpdf/tcpdf.php';
 require_once '../config.php';
 require_once 'functions.php';

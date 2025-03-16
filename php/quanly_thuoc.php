@@ -10,16 +10,15 @@ require_once 'function/functions.php';
 require_once 'function/them_thuoc.php';  
 
 // Lấy danh sách cho drop dơwn 
-$loaiThuoc = mysqli_query($conn, "SELECT * FROM LoaiThuoc ORDER BY TenLoai");
-$hangSX = mysqli_query($conn, "SELECT * FROM HangSanXuat ORDER BY TenHang");
-$nhaCungCap = mysqli_query($conn, "SELECT * FROM NhaCungCap ORDER BY TenNCC");
+$loaiThuoc = LayDanhSachLoaiThuoc();
+$hangSX = LayDanhSachHangSX();
+$nhaCungCap = LayDanhSachNhaCungCap();
 
 $thongBao = "";
 if (isset($_SESSION['thongbao'])) {
     $thongBao = $_SESSION['thongbao'];
     unset($_SESSION['thongbao']);
 }
-
 ?>
 
 <!DOCTYPE html> 
@@ -56,7 +55,7 @@ if (isset($_SESSION['thongbao'])) {
                         <!-- Thông báo -->
                         <?php if (!empty($thongBao)) echo $thongBao; ?>
                         
-                        <!-- Thêm thuốc -->
+                        <!-- Form thêm thuốc -->
                         <div id="formThemThuoc" class="form-container" style="display: none;">
                             <form method="POST" action="./function/them_thuoc.php" class="form-thuoc">
                                 <div class="form-group">
@@ -146,7 +145,7 @@ if (isset($_SESSION['thongbao'])) {
                                                 <td class='don-gia'>" . number_format($row['DonGia'], 0, ',', '.') . " đ</td>
                                                 <td class='so-luong'>" . htmlspecialchars($row['SoLuongTonKho']) . "</td>
                                                 <td class='don-vi-tinh'>" . htmlspecialchars($row['DonViTinh']) . "</td>
-                                                <td class='ngay'>" . htmlspecialchars($row['HanSuDung']) . "</td>                                                
+                                                <td class='ngay'>" . htmlspecialchars($row['HanSuDung']) . "</td>                                             
                                                 <td class='button-center'>
                                                     <a href='function/sua_thuoc.php?id=" . htmlspecialchars($row['MaThuoc']) . "' class='btn btn-warning btn-sm'>
                                                         <i class='fas fa-edit'></i> Sửa
@@ -170,8 +169,6 @@ if (isset($_SESSION['thongbao'])) {
     </div>
     <?php include 'includes/footer.php'; ?>
 </div>
-
-
 
 <script>
     function toggleForm() {

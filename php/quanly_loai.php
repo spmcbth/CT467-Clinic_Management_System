@@ -32,14 +32,37 @@ require_once 'function/functions.php';
                     <div class="page-header">
                         <h2>Quản Lý Loại Thuốc</h2>
                     </div>
-                    
                     <div class="card p-4 shadow">
+                        <!-- Button thêm loại thuốc -->
                         <div class="btn-container"> 
                             <button class="btn btn-primary mb-3" onclick="toggleForm()">
                                 <i class="fas fa-plus"></i> Thêm Loại Thuốc
                             </button>
                         </div> 
 
+                        <!-- Thông báo -->
+                        <?php if (!empty($thongBao)) echo $thongBao; ?>
+
+                        <!-- Form thêm thuốc -->
+                        <div id="form-them-loai-thuoc" class="hidden">
+                            <form action="function/them_loai_thuoc.php" method="POST">
+                                <div class="mb-3">
+                                    <label for="maLoai" class="form-label">Mã Loại</label>
+                                    <input type="text" class="form-control" id="maLoai" name="maLoai" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="tenLoai" class="form-label">Tên Loại</label>
+                                    <input type="text" class="form-control" id="tenLoai" name="tenLoai" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="donViTinh" class="form-label">Đơn Vị Tính</label>
+                                    <input type="text" class="form-control" id="donViTinh" name="donViTinh" required>
+                                </div>
+                                <button type="submit" class="btn btn-success">Thêm Loại Thuốc</button>
+                                <button type="button" class="btn btn-danger" onclick="toggleForm()">Hủy</button>
+                            </form>
+                        </div>
+                        <!-- Bảng loại thuốc  -->
                         <table class="table table-bordered table-striped table-hover">
                             <thead class="table-dark text-center">
                                 <tr>
@@ -75,6 +98,11 @@ require_once 'function/functions.php';
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-
+<script>
+    function toggleForm() {
+        var form = document.getElementById("form-them-loai-thuoc");
+        form.classList.toggle("hidden");
+    }
+</script>
 </body>
 </html>

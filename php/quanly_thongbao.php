@@ -18,7 +18,6 @@ require_once 'function/functions.php';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/table.css">
-    <link rel="stylesheet" href="../assets/css/them_thuoc.css">
 </head>
 <body>
 
@@ -66,6 +65,7 @@ require_once 'function/functions.php';
             </div>
         </div>
     </div>
+    
     <?php include 'includes/footer.php'; ?>
 </div>
 

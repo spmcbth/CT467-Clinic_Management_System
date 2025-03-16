@@ -1,17 +1,10 @@
 <?php
-// Bật chế độ báo lỗi
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ob_start(); // Xóa buffer để tránh lỗi file bị hỏng
 
-// Xóa buffer để tránh lỗi file bị hỏng
-ob_start();
-
-// Require thư viện PhpSpreadsheet
 require_once '../../vendor/autoload.php';
-require_once '../config.php'; // Kết nối CSDL
+require_once '../config.php'; 
 require_once 'functions.php';
 
-// Import namespace cần thiết
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -51,15 +44,13 @@ try {
 
     $result = $conn->query($sql);
     
-    // Kiểm tra dữ liệu
     if ($result && $result->num_rows > 0) {
-        $rowNum = 4; // Dòng bắt đầu nhập dữ liệu
-        $currentMaHD = null; // Biến theo dõi hóa đơn hiện tại
+        $rowNum = 4; // Dòng bắt đầu nhập dữ liệu vào excel 
+        $currentMaHD = null;
 
         while ($row = $result->fetch_assoc()) {
-            // Nếu gặp hóa đơn mới, in thêm dòng tiêu đề hóa đơn
             if ($row['MaHD'] !== $currentMaHD) {
-                $currentMaHD = $row['MaHD'];
+                $currentMaHD = $row['MaHD'];  // Im thêm dòng cho hóa đơn mới 
 
                 // In thông tin hóa đơn
                 $sheet->setCellValue('A' . $rowNum, $row['MaHD']);
@@ -90,11 +81,9 @@ try {
         $sheet->getColumnDimension($col)->setAutoSize(true);
     }
 
-    // Đóng kết nối CSDL
     $conn->close();
 
-    // Xóa buffer
-    ob_end_clean();
+    ob_end_clean(); // Xóa buffer
 
     // Thiết lập header để tải file Excel
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

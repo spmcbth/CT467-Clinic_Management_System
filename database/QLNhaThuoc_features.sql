@@ -1,7 +1,7 @@
 USE QLNhaThuoc;
 
-# TRIGGER: THÔNG BÁO THUỐC HẾT HẠN 
--- Tự động thông báo thuốc sắp hết hạn mỗi ngày 
+            /* === TRIGGER === */
+-- Tự động thông báo thuốc hết hạn mỗi ngày vào 6h sáng 
 DELIMITER $$
 DROP EVENT IF EXISTS AutoCheckThuocHetHan $$
 CREATE EVENT AutoCheckThuocHetHan
@@ -22,7 +22,7 @@ BEGIN
         AND tb.NoiDung LIKE '%sắp hết hạn%'
     );
 END $$
-SHOW EVENTS; -- Kiểm tra event có đc gọi hay chưa 
+-- SHOW EVENTS; -- Kiểm tra event có đc gọi hay chưa 
 
 -- Thông báo nếu thuốc thêm vào sắp hết hạn 
 DELIMITER $$
@@ -38,7 +38,7 @@ BEGIN
     END IF;
 END $$
 
-#		===  LẤY DANH SÁCH THUỐC  === 
+            /* === LẤY DANH SÁCH THUỐC === */
 DELIMITER $$
 DROP PROCEDURE IF EXISTS LayDanhSachThuoc; $$
 CREATE PROCEDURE LayDanhSachThuoc()
@@ -52,7 +52,7 @@ BEGIN
 END $$
 -- CALL LayDanhSachThuoc()
 
-#    === CÁC HÀM LẤY DANH SÁCH  ===
+            /* === CÁC HÀM LẤY DANH SÁCH === */
 -- danh sách Khách Hàng 
 DELIMITER $$
 CREATE PROCEDURE LayDanhSachKhachHang()
@@ -101,7 +101,8 @@ BEGIN
 END $$
 -- CALL LayDanhSachNhaCungCap()
 
--- chi tiết hóa đơn
+            /* === QUẢN LÝ HÓA ĐƠN === */
+-- Lấy chi tiết hóa đơn theo mã
 DELIMITER $$
 DROP PROCEDURE IF EXISTS LayChiTietHoaDon $$
 CREATE PROCEDURE LayChiTietHoaDon(IN p_MaHD VARCHAR(10))
@@ -113,7 +114,7 @@ BEGIN
 END $$
 -- CALL LayChiTietHoaDon('HD001')
 
---  lấy hóa đơn theo mã 
+--  Lấy hóa đơn theo mã 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS LayHoaDon $$
 CREATE PROCEDURE LayHoaDon(IN p_MaHD VARCHAR(10))
@@ -125,7 +126,19 @@ BEGIN
 END $$
 -- CALL LayHoaDon('HD001')
 
-#		=== THÊM THUỐC ===
+-- Giảm số lượng thuốc khi thêm số lượng thuốc vào hóa đơn 
+DELIMITER $$
+DROP TRIGGER IF EXISTS GiamSoLuongThuoc $$
+CREATE TRIGGER GiamSoLuongThuoc
+AFTER INSERT ON ChiTietHoaDon
+FOR EACH ROW
+BEGIN
+    UPDATE Thuoc 
+    SET SoLuongTonKho = SoLuongTonKho - NEW.SoLuongBan
+    WHERE MaThuoc = NEW.MaThuoc;
+END $$
+
+            /* === THÊM THUỐC === */
 DELIMITER $$
 CREATE PROCEDURE ThemThuoc(
     IN p_MaThuoc VARCHAR(10),
@@ -143,19 +156,7 @@ BEGIN
     VALUES (p_MaThuoc, p_MaLoai, p_MaHangSX, p_MaNCC, p_TenThuoc, p_CongDung, p_DonGia, p_SoLuongTonKho, p_HanSuDung);
 END $$
 
-#		=== HÓA ĐƠN  ===
-DELIMITER $$
-DROP TRIGGER IF EXISTS GiamSoLuongThuoc $$
-CREATE TRIGGER GiamSoLuongThuoc
-AFTER INSERT ON ChiTietHoaDon
-FOR EACH ROW
-BEGIN
-    UPDATE Thuoc 
-    SET SoLuongTonKho = SoLuongTonKho - NEW.SoLuongBan
-    WHERE MaThuoc = NEW.MaThuoc;
-END $$
-
-#		=== SỬA THUỐC  ===
+            /* === SỬA THUỐC === */
 DELIMITER $$
 DROP PROCEDURE IF EXISTS SuaThuoc $$
 CREATE PROCEDURE SuaThuoc(
@@ -183,7 +184,7 @@ BEGIN
     WHERE MaThuoc = p_MaThuoc;
 END $$
 
-#		===  XÓA THUỐC  ===
+            /* === XÓA THUỐC === */
 DELIMITER $$
 DROP PROCEDURE IF EXISTS XoaThuoc $$
 CREATE PROCEDURE XoaThuoc(IN p_MaThuoc VARCHAR(10))
@@ -193,6 +194,4 @@ BEGIN
     -- Sau đó xóa thuốc trong bảng Thuoc
     DELETE FROM Thuoc WHERE MaThuoc = p_MaThuoc;
 END $$ 
-
-
 
