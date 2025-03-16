@@ -16,9 +16,9 @@ $MaThuoc = $_GET['id'];
 $stmt = $conn->prepare("SELECT * FROM Thuoc WHERE MaThuoc = ?");
 $stmt->bind_param("s", $MaThuoc);
 $stmt->execute();
-$result = $stmt->get_result();  // Store the result first
+$result = $stmt->get_result();  
 $thuoc = $result->fetch_assoc();
-$result->free();  // Now free the result
+$result->free();  //Giải phóng bộ nhớ 
 $stmt->close();   
 
 if (!$thuoc) {
@@ -91,6 +91,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
 
                     <div class="card p-4 shadow">
+
+                        <!-- Thông báo -->
                         <?php if (!empty($thongBao)): ?> 
                         <div class="alert alert-success"><?php echo htmlspecialchars($thongBao); ?></div>
                         <?php endif; ?>
@@ -167,11 +169,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </div>
+
     <?php include '../includes/footer.php'; ?>
 </div>
 
 <?php
-    // Free result sets at the end of the script
+    // Giải phóng bộ nhớ 
     if (isset($loaiThuoc) && $loaiThuoc) $loaiThuoc->free();
     if (isset($hangSX) && $hangSX) $hangSX->free();
     if (isset($nhaCungCap) && $nhaCungCap) $nhaCungCap->free();

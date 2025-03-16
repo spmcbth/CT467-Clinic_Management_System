@@ -41,8 +41,9 @@ if (isset($_SESSION['thongbao'])) {
                     <div class="page-header">
                         <h2>Quản Lý Loại Thuốc</h2>
                     </div>
-                    
                     <div class="card p-4 shadow">
+                        
+                        <!-- Button thêm loại thuốc -->
                         <div class="btn-container">
                             <button class="btn btn-primary mb-3" onclick="toggleForm()">
                                 <i class="fas fa-plus"></i> Thêm Loại Thuốc
@@ -106,6 +107,7 @@ if (isset($_SESSION['thongbao'])) {
             </div>
         </div>
     </div>
+    
     <?php include 'includes/footer.php'; ?>
 </div>
 

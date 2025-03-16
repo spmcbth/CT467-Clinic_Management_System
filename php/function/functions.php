@@ -8,41 +8,11 @@ if (!function_exists('LayDanhSach')) {
         while ($conn->more_results()) {
             $conn->next_result();
         }
-        return $conn->query("CALL $procedureName()");
+        return $conn->query("CALL $procedureName()");  // Gọi Procedure có trong MySQL
     }
 }
 
-            /* === THÊM SỬA XÓA THUỐC === */
-
-// Hàm kiểm tra dữ liệu trước khi sửa thuốc 
-if (!function_exists('kiemTraDuLieuThuoc')) {
-    function kiemTraDuLieuThuoc($TenThuoc, $MaLoai, $CongDung, $DonGia, $SoLuong) {
-        if (empty($TenThuoc) || empty($MaLoai) || empty($CongDung)) {
-            return "Thông tin thuốc không được để trống!";
-        }
-        if ($DonGia < 0) {
-            return "Đơn giá không thể nhỏ hơn 0!";
-        }
-        if ($SoLuong < 0) {
-            return "Số lượng không thể nhỏ hơn 0!";
-        }
-        return ""; // Trả về rỗng nếu dữ liệu hợp lệ
-    }
-}
-
-// Hàm sửa thuốc
-
-
-// Hàm kiểm tra dữ liệu trước khi sửa loại thuốc 
-if (!function_exists('kiemTraDuLieuLoaiThuoc')) {
-    function kiemTraDuLieuLoaiThuoc($TenLoai, $DonViTinh) {
-        if (empty($TenLoai) || empty($DonViTinh)) {
-            return "Thông tin thuốc không được để trống!";
-        }
-        return ""; // Trả về rỗng nếu dữ liệu hợp lệ
-    }
-}
-
+            /* === GỌI STORED PROCEDURE === */
 function CallStoredProcedure($procedure, $params) {
     global $conn;
     
@@ -76,40 +46,73 @@ function CallStoredProcedure($procedure, $params) {
 }
 
 
+            /* === THÊM, SỬA, XÓA THUỐC === */
 function ThemThuoc($MaThuoc, $MaLoai, $MaHangSX, $MaNCC, $TenThuoc, $CongDung, $DonGia, $SoLuong, $HanSuDung) {
     return CallStoredProcedure("ThemThuoc", func_get_args());
-}
-
-function ThemLoaiThuoc($MaLoai, $TenLoai, $DonViTinh) {
-    return CallStoredProcedure("ThemLoaiThuoc", func_get_args());
-}
-
-function ThemKhachHang($MaKH, $TenKH, $SoDienThoai, $DiaChi) {
-    return CallStoredProcedure("ThemKhachHang", func_get_args());
 }
 
 function SuaThuoc($MaThuoc, $MaLoai, $MaHangSX, $MaNCC, $TenThuoc, $CongDung, $DonGia, $SoLuong, $HanSuDung) {
     return CallStoredProcedure("SuaThuoc", func_get_args());
 }
 
-function SuaLoaiThuoc($MaLoai, $TenLoai, $DonViTinh) {
-    return CallStoredProcedure("SuaLoaiThuoc", func_get_args());
-}
-
-function SuaKhachHang($MaKH, $TenKH, $SoDienThoai, $DiaChi) {
-    return CallStoredProcedure("SuaKhachHang", func_get_args());
-}
-
 function XoaThuoc($MaThuoc) {
     return CallStoredProcedure("XoaThuoc", [$MaThuoc]);
+}
+
+
+            /* === THÊM, SỬA, XÓA LOẠI THUỐC === */
+function ThemLoaiThuoc($MaLoai, $TenLoai, $DonViTinh) {
+    return CallStoredProcedure("ThemLoaiThuoc", func_get_args());
+}
+
+function SuaLoaiThuoc($MaLoai, $TenLoai, $DonViTinh) {
+    return CallStoredProcedure("SuaLoaiThuoc", func_get_args());
 }
 
 function XoaLoaiThuoc($MaLoai) {
     return CallStoredProcedure("XoaLoaiThuoc", [$MaLoai]);
 }
 
+
+            /* === THÊM, SỬA, XÓA KHÁCH HÀNG === */
+function ThemKhachHang($MaKH, $TenKH, $SoDienThoai, $DiaChi) {
+    return CallStoredProcedure("ThemKhachHang", func_get_args());
+}
+
+function SuaKhachHang($MaKH, $TenKH, $SoDienThoai, $DiaChi) {
+    return CallStoredProcedure("SuaKhachHang", func_get_args());
+}
+
 function XoaKhachHang($MaKH) {
     return CallStoredProcedure("XoaKhachHang", [$MaKH]);
+}
+
+
+            /* === KIỂM TRA DỮ LIỆU === */
+// Hàm kiểm tra dữ liệu trước khi sửa thuốc 
+if (!function_exists('kiemTraDuLieuThuoc')) {
+    function kiemTraDuLieuThuoc($TenThuoc, $MaLoai, $CongDung, $DonGia, $SoLuong) {
+        if (empty($TenThuoc) || empty($MaLoai) || empty($CongDung)) {
+            return "Thông tin thuốc không được để trống!";
+        }
+        if ($DonGia < 0) {
+            return "Đơn giá không thể nhỏ hơn 0!";
+        }
+        if ($SoLuong < 0) {
+            return "Số lượng không thể nhỏ hơn 0!";
+        }
+        return ""; // Trả về rỗng nếu dữ liệu hợp lệ
+    }
+}
+
+// Hàm kiểm tra dữ liệu trước khi sửa loại thuốc 
+if (!function_exists('kiemTraDuLieuLoaiThuoc')) {
+    function kiemTraDuLieuLoaiThuoc($TenLoai, $DonViTinh) {
+        if (empty($TenLoai) || empty($DonViTinh)) {
+            return "Thông tin thuốc không được để trống!";
+        }
+        return ""; // Trả về rỗng nếu dữ liệu hợp lệ
+    }
 }
 
 
@@ -124,6 +127,7 @@ if (!function_exists('ThemHoaDon')) {
         return mysqli_stmt_execute($stmt);
     }
 }
+
 // Thêm chi tiết hóa đơn
 if (!function_exists('ThemChiTietHoaDon')) {
     function ThemChiTietHoaDon($MaCTHD, $MaHD, $MaThuoc, $SoLuongBan, $GiaBan) {
@@ -134,7 +138,8 @@ if (!function_exists('ThemChiTietHoaDon')) {
         return mysqli_stmt_execute($stmt);
     }
 }
-// Cập nhật tổng tiền
+
+// Cập nhật tổng tiền hóa đơn
 if (!function_exists('CapNhatTongTienHoaDon')) {
     function CapNhatTongTienHoaDon($MaHD, $TongTien) {
         global $conn;
@@ -144,6 +149,7 @@ if (!function_exists('CapNhatTongTienHoaDon')) {
         return mysqli_stmt_execute($stmt);
     }
 }
+
 // Cập nhật số lượng thuốc
 if (!function_exists('CapNhatSoLuongThuoc')) {
     function CapNhatSoLuongThuoc($MaThuoc, $SoLuong) {
@@ -163,6 +169,7 @@ if (!function_exists('CapNhatSoLuongThuoc')) {
         return mysqli_query($conn, $query);
     }
 }
+
 
             /* === XEM CHI TIẾT HÓA ĐƠN === */
 // Lấy hóa đơn theo mã 
@@ -190,15 +197,11 @@ if (!function_exists('LayChiTietHoaDon')) {
         $chiTietHoaDon = [];
     
         while ($row = $result->fetch_assoc()) {
-            $chiTietHoaDon[] = $row; // Lưu nhiều dòng vào mảng
+            $chiTietHoaDon[] = $row;
         }
     
         $stmt->close();
-        return $chiTietHoaDon; // Trả về danh sách chi tiết hóa đơn
+        return $chiTietHoaDon;
     }
 }
-
-
-
-
 ?>

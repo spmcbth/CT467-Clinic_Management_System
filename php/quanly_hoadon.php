@@ -39,6 +39,8 @@ if (isset($_SESSION['thongbao'])) {
                     </div>
                     
                     <div class="card p-4 shadow">
+
+                        <!-- Button thêm hóa đơn và xuất excel -->
                         <div class="btn-container">  
                             <a href="function/them_HD.php" class="btn btn-primary mb-3">
                                 <i class="fas fa-plus"></i> Thêm Hóa Đơn
@@ -47,9 +49,11 @@ if (isset($_SESSION['thongbao'])) {
                                 <i class="fas fa-file-excel"></i> Xuất Excel
                             </a>
                         </div>
+
                         <!-- Thông báo -->
                         <?php if (!empty($thongBao)) echo $thongBao; ?>
 
+                        <!-- Form hóa đơn -->
                         <table class="table table-bordered table-striped table-hover">
                             <thead class="table-dark text-center">
                                 <tr>

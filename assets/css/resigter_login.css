@@ -69,21 +69,16 @@ button {
     margin-bottom: 15px;
 }
 
-.btn-login {
+.btn-login,
+.btn-register,
+.btn-submit {
     background-color: #28a745;
     color: white;
 }
 
-.btn-login:hover {
-    background-color: #239638;
-}
-
-.btn-register {
-    background-color: #28a745;
-    color: white;
-}
-
-.btn-register:hover {
+.btn-login:hover,
+.btn-register:hover,
+.btn-submit:hover {
     background-color: #239638;
 }
 

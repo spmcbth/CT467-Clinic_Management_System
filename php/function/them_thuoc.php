@@ -6,7 +6,6 @@ if (session_status() == PHP_SESSION_NONE) {
 include __DIR__ . '/../config.php';
 require_once 'functions.php';
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btn_them'])) {
     // Tạo mã thuốc tự động
     $query = "SELECT MAX(CAST(SUBSTRING(MaThuoc, 3) AS UNSIGNED)) as max_id FROM Thuoc WHERE MaThuoc LIKE 'T%'";

@@ -1,7 +1,6 @@
 <?php
-// sidebar.php - File sidebar được include vào trang chính
 ?>
-<!-- Sidebar -->
+
 <div class="sidebar">
     <div class="sidebar-header">
         <img src="../../assets/image/icon.png" alt="Logo">
@@ -51,7 +50,7 @@
 </div>
 
 <script>
-    // Menu active hiện tại
+    // Menu active cho trang hiện tại 
     const currentLocation = location.href;
     const menuItems = document.querySelectorAll('.sidebar-menu a');
     menuItems.forEach(item => {

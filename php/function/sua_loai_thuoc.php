@@ -74,6 +74,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
 
                     <div class="card p-4 shadow">
+                        
+                        <!-- Thông báo -->
                         <?php if (!empty($thongBao)): ?>
                             <div class="alert alert-success"><?php echo htmlspecialchars($thongBao); ?></div>
                         <?php endif; ?>
@@ -99,6 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </div>
+    
     <?php include '../includes/footer.php'; ?>
 </div>
 </body>

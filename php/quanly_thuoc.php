@@ -166,6 +166,7 @@ if (isset($_SESSION['thongbao'])) {
             </div>
         </div>
     </div>
+    
     <?php include 'includes/footer.php'; ?>
 </div>
 

@@ -32,6 +32,7 @@ require_once 'function/functions.php';
                         <h2>Quản Lý Thuốc</h2>
                     </div>
                     
+                    <!-- Form thông báo -->
                     <div class="card p-4 shadow">
                         <table class="table table-bordered table-striped table-hover">
                             <thead class="table-dark text-center">

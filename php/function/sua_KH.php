@@ -29,6 +29,7 @@ if (isset($_SESSION['thongbao'])) {
     unset($_SESSION['thongbao']);
 }
 
+// Xử lý cập nhật khách hàng khi nhấn nút "Cập nhật"
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $TenKH = $_POST['ten_kh'];
     $SoDienThoai = $_POST['so_dien_thoai'];
@@ -72,6 +73,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
 
                     <div class="card p-4 shadow">
+
+                        <!-- Thông báo -->
                         <?php if (!empty($thongBao)): ?>
                             <div class="alert alert-success"><?php echo htmlspecialchars($thongBao); ?></div>
                         <?php endif; ?>
@@ -102,6 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </div>
+
     <?php include '../includes/footer.php'; ?>
 </div>
 </body>

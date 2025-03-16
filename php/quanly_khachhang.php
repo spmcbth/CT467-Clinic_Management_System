@@ -42,8 +42,9 @@ if (isset($_SESSION['thongbao'])) {
                     <div class="page-header">
                         <h2>Quản Lý Khách Hàng</h2>
                     </div>
-
                     <div class="card p-4 shadow">
+                        
+                        <!-- Button thêm khách hàng -->
                         <div class="btn-container">
                             <button class="btn btn-primary mb-3" onclick="toggleForm()">
                                 <i class="fas fa-plus"></i> Thêm Khách Hàng
@@ -114,15 +115,16 @@ if (isset($_SESSION['thongbao'])) {
             </div>
         </div>
     </div>
+
     <?php include 'includes/footer.php'; ?>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-function toggleForm() {
-    var form = document.getElementById("formThemKhachHang");
-    form.style.display = form.style.display === "none" ? "block" : "none";
-}
+    function toggleForm() {
+        var form = document.getElementById("formThemKhachHang");
+        form.style.display = form.style.display === "none" ? "block" : "none";
+    }
 </script>
 </body>
 </html>

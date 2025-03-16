@@ -28,5 +28,6 @@ $stmt->close();
 $conn->close();
 
 header("Location: ../quanly_khachhang.php");
+echo "<script>window.location.href='../quanly_khachhang.php';</script>";
 exit();
 ?>

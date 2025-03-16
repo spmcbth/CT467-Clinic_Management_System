@@ -14,7 +14,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btn_them'])) {
     $next_id = ($row['max_id']) ? $row['max_id'] + 1 : 1;
     $MaKH = 'KH' . str_pad($next_id, 3, '0', STR_PAD_LEFT);
 
-    // Lấy dữ liệu từ form
     $TenKH = $_POST['ten_kh'];
     $SoDienThoai = $_POST['so_dien_thoai'];
     $DiaChi = $_POST['dia_chi'];
