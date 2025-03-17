@@ -64,19 +64,8 @@ BEGIN
     END IF;
 END $$
 
--- Giảm số lượng thuốc khi thêm vào hóa đơn 
-DELIMITER $$
-DROP TRIGGER IF EXISTS GiamSoLuongThuoc $$
-CREATE TRIGGER GiamSoLuongThuoc
-AFTER INSERT ON ChiTietHoaDon
-FOR EACH ROW
-BEGIN
-    UPDATE Thuoc 
-    SET SoLuongTonKho = SoLuongTonKho - NEW.SoLuongBan
-    WHERE MaThuoc = NEW.MaThuoc;
-END $$
-
             /* === CÁC HÀM LẤY DANH SÁCH === */
+            
 -- Danh sách thuốc
 DELIMITER $$
 DROP PROCEDURE IF EXISTS LayDanhSachThuoc; $$
@@ -156,6 +145,40 @@ BEGIN
 	WHERE ChiTietHoaDon.MaHD = p_MaHD;
 END $$
 
+-- Thêm hóa đơn 
+DELIMITER $$
+CREATE PROCEDURE ThemHoaDon(
+    IN p_MaHD VARCHAR(10), IN p_MaKH VARCHAR(10), 
+    IN p_NgayLap DATE, IN p_TongTien DECIMAL(10,2)
+)
+BEGIN
+    INSERT INTO HoaDon (MaHD, MaKH, NgayLap, TongTien)
+    VALUES (p_MaHD, p_MaKH, p_NgayLap, p_TongTien);
+END $$
+
+-- Thêm chi tiết hóa đơn 
+DELIMITER $$
+CREATE PROCEDURE ThemChiTietHoaDon(
+    IN p_MaCTHD VARCHAR(10), IN p_MaHD VARCHAR(10), IN p_MaThuoc VARCHAR(10),
+    IN p_SoLuongBan INT, IN p_GiaBan DECIMAL(10,2)
+)
+BEGIN
+    INSERT INTO ChiTietHoaDon (MaCTHD, MaHD, MaThuoc, SoLuongBan, GiaBan)
+    VALUES (p_MaCTHD, p_MaHD, p_MaThuoc, p_SoLuongBan, p_GiaBan);
+END $$
+
+-- Cập nhật tổng tiền 
+DELIMITER $$
+CREATE PROCEDURE CapNhatTongTienHoaDon(
+    IN p_MaHD VARCHAR(10),
+    IN p_TongTien DECIMAL(10,2)
+)
+BEGIN
+    UPDATE HoaDon 
+    SET TongTien = p_TongTien 
+    WHERE MaHD = p_MaHD;
+END $$
+
             /* === QUẢN LÝ THUỐC === */
 -- Thêm thuốc
 DELIMITER $$
@@ -178,27 +201,16 @@ END $$
 -- Sửa thuốc
 DELIMITER $$
 DROP PROCEDURE IF EXISTS SuaThuoc $$
-CREATE PROCEDURE SuaThuoc(
-    IN p_MaThuoc VARCHAR(10),
-    IN p_MaLoai VARCHAR(10),
-    IN p_MaHangSX VARCHAR(10),
-    IN p_MaNCC VARCHAR(10),
-    IN p_TenThuoc VARCHAR(255),
-    IN p_CongDung TEXT,
-    IN p_DonGia DECIMAL(10,2),
-    IN p_SoLuongTonKho INT,
-    IN p_HanSuDung DATE
+CREATE PROCEDURE SuaThuoc( IN p_MaThuoc VARCHAR(10), IN p_MaLoai VARCHAR(10), IN p_MaHangSX VARCHAR(10),
+							IN p_MaNCC VARCHAR(10), IN p_TenThuoc VARCHAR(255), IN p_CongDung TEXT, IN p_DonGia DECIMAL(10,2),
+							IN p_SoLuongTonKho INT, IN p_HanSuDung DATE
 )
 BEGIN
     UPDATE Thuoc
-    SET MaLoai = p_MaLoai,
-        MaHangSX = p_MaHangSX,
-        MaNCC = p_MaNCC,
-        TenThuoc = p_TenThuoc,
-        CongDung = p_CongDung,
-        DonGia = p_DonGia,
-        SoLuongTonKho = p_SoLuongTonKho,
-        HanSuDung = p_HanSuDung
+    SET MaLoai = p_MaLoai, MaHangSX = p_MaHangSX,
+        MaNCC = p_MaNCC, TenThuoc = p_TenThuoc,
+        CongDung = p_CongDung, DonGia = p_DonGia,
+        SoLuongTonKho = p_SoLuongTonKho, HanSuDung = p_HanSuDung
     WHERE MaThuoc = p_MaThuoc;
 END $$
 
@@ -250,10 +262,8 @@ END $$
 -- Thêm khách hàng
 DELIMITER $$
 CREATE PROCEDURE ThemKhachHang (
-    IN p_MaKH VARCHAR(10),
-    IN p_TenKH VARCHAR(100),
-    IN p_SoDienThoai VARCHAR(15),
-    IN p_DiaChi VARCHAR(200)
+    IN p_MaKH VARCHAR(10), IN p_TenKH VARCHAR(100),
+    IN p_SoDienThoai VARCHAR(15), IN p_DiaChi VARCHAR(200)
 )
 BEGIN
     INSERT INTO KhachHang (MaKH, TenKH, SoDienThoai, DiaChi)
@@ -263,10 +273,8 @@ END $$
 -- Sửa khách hàng
 DELIMITER $$
 CREATE PROCEDURE SuaKhachHang (
-    IN p_MaKH VARCHAR(10),
-    IN p_TenKH VARCHAR(100),
-    IN p_SoDienThoai VARCHAR(15),
-    IN p_DiaChi VARCHAR(200)
+    IN p_MaKH VARCHAR(10), IN p_TenKH VARCHAR(100),
+    IN p_SoDienThoai VARCHAR(15), IN p_DiaChi VARCHAR(200)
 )
 BEGIN
     UPDATE KhachHang 

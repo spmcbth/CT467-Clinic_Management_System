@@ -121,7 +121,7 @@ if (!function_exists('kiemTraDuLieuLoaiThuoc')) {
 if (!function_exists('ThemHoaDon')) {
     function ThemHoaDon($MaHD, $MaKH, $NgayLap, $TongTien) {
         global $conn;
-        $query = "INSERT INTO HoaDon (MaHD, MaKH, NgayLap, TongTien) VALUES (?, ?, ?, ?)";
+        $query = "CALL ThemHoaDon(?, ?, ?, ?)";
         $stmt = mysqli_prepare($conn, $query);
         mysqli_stmt_bind_param($stmt, "sssd", $MaHD, $MaKH, $NgayLap, $TongTien);
         return mysqli_stmt_execute($stmt);
@@ -132,7 +132,7 @@ if (!function_exists('ThemHoaDon')) {
 if (!function_exists('ThemChiTietHoaDon')) {
     function ThemChiTietHoaDon($MaCTHD, $MaHD, $MaThuoc, $SoLuongBan, $GiaBan) {
         global $conn;
-        $query = "INSERT INTO ChiTietHoaDon (MaCTHD, MaHD, MaThuoc, SoLuongBan, GiaBan) VALUES (?, ?, ?, ?, ?)";
+        $query = "CALL ThemChiTietHoaDon(?, ?, ?, ?, ?)";
         $stmt = mysqli_prepare($conn, $query);
         mysqli_stmt_bind_param($stmt, "sssid", $MaCTHD, $MaHD, $MaThuoc, $SoLuongBan, $GiaBan);
         return mysqli_stmt_execute($stmt);
@@ -143,9 +143,9 @@ if (!function_exists('ThemChiTietHoaDon')) {
 if (!function_exists('CapNhatTongTienHoaDon')) {
     function CapNhatTongTienHoaDon($MaHD, $TongTien) {
         global $conn;
-        $query = "UPDATE HoaDon SET TongTien = ? WHERE MaHD = ?";
+        $query = "CALL CapNhatTongTienHoaDon(?, ?)";
         $stmt = mysqli_prepare($conn, $query);
-        mysqli_stmt_bind_param($stmt, "ds", $TongTien, $MaHD);
+        mysqli_stmt_bind_param($stmt, "sd", $MaHD, $TongTien);
         return mysqli_stmt_execute($stmt);
     }
 }
