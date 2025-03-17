@@ -1,6 +1,6 @@
 USE QLNhaThuoc;
-SHOW TRIGGERS FROM QLNhaThuoc;
-SHOW EVENTS FROM QLNhaThuoc;
+-- SHOW TRIGGERS FROM QLNhaThuoc;
+-- SHOW EVENTS FROM QLNhaThuoc;
 
             /* === FUNCTION === */
 -- Trả về tổng số lượng thuốc còn lại trong kho của một loại thuốc 
@@ -62,6 +62,18 @@ BEGIN
                 CONCAT('Thuốc "', NEW.TenThuoc, '" sắp hết hạn vào ngày ', DATE_FORMAT(NEW.HanSuDung, '%d-%m-%Y')), 
                 NOW());
     END IF;
+END $$
+
+-- Giảm số lượng thuốc khi thêm vào hóa đơn 
+DELIMITER $$
+DROP TRIGGER IF EXISTS GiamSoLuongThuoc $$
+CREATE TRIGGER GiamSoLuongThuoc
+AFTER INSERT ON ChiTietHoaDon
+FOR EACH ROW
+BEGIN
+    UPDATE Thuoc 
+    SET SoLuongTonKho = SoLuongTonKho - NEW.SoLuongBan
+    WHERE MaThuoc = NEW.MaThuoc;
 END $$
 
             /* === CÁC HÀM LẤY DANH SÁCH === */
