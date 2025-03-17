@@ -31,7 +31,7 @@ DELIMITER $$
 DROP EVENT IF EXISTS AutoCheckThuocHetHan $$
 CREATE EVENT AutoCheckThuocHetHan
 ON SCHEDULE EVERY 1 DAY
-STARTS TIMESTAMP(CURDATE(), '06:00:00') -- dùng CURRENT_TIMESTAMP để check ngay lập tức 
+STARTS TIMESTAMP(CURDATE(), '6:00:00')
 DO
 BEGIN
     INSERT INTO ThongBao (MaThuoc, NoiDung, NgayThongBao)
@@ -44,7 +44,9 @@ BEGIN
     AND NOT EXISTS (
         SELECT 1 FROM ThongBao tb 
         WHERE tb.MaThuoc = t.MaThuoc 
-        AND tb.NoiDung LIKE '%sắp hết hạn%'
+        AND tb.NoiDung = CONCAT('Thuốc "', t.TenThuoc, '" sắp hết hạn vào ngày ', DATE_FORMAT(t.HanSuDung, '%d-%m-%Y'))
+        AND DATE(tb.NgayThongBao) = CURDATE()
+        LIMIT 1
     );
 END $$
 
