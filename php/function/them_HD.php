@@ -65,11 +65,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btn_them'])) {
                 if (!ThemChiTietHoaDon($MaCTHD, $MaHD, $MaThuoc, $SoLuong, $GiaBan)) {
                     throw new Exception("Lỗi khi thêm chi tiết hóa đơn: " . mysqli_error($conn));
                 }
-
-                // Cập nhật số lượng tồn kho
-                if (!CapNhatSoLuongThuoc($MaThuoc, $SoLuong)) {
-                    throw new Exception("Không đủ số lượng thuốc trong kho hoặc lỗi khi cập nhật tồn kho!");
-                }
             }
         } else {
             throw new Exception("Vui lòng thêm ít nhất một loại thuốc vào hóa đơn!");

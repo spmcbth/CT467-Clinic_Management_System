@@ -150,28 +150,7 @@ if (!function_exists('CapNhatTongTienHoaDon')) {
     }
 }
 
-// Cập nhật số lượng thuốc
-if (!function_exists('CapNhatSoLuongThuoc')) {
-    function CapNhatSoLuongThuoc($MaThuoc, $SoLuong) {
-        global $conn;
-        
-        // Kiểm tra số lượng tồn kho
-        $query = "SELECT SoLuongTonKho FROM Thuoc WHERE MaThuoc = '$MaThuoc'";
-        $result = mysqli_query($conn, $query);
-        $row = mysqli_fetch_assoc($result);
-        
-        if ($row['SoLuongTonKho'] < $SoLuong) {
-            return false; // Không đủ số lượng
-        }
-        
-        // Cập nhật số lượng
-        $query = "UPDATE Thuoc SET SoLuongTonKho = SoLuongTonKho - $SoLuong WHERE MaThuoc = '$MaThuoc'";
-        return mysqli_query($conn, $query);
-    }
-}
-
-
-
+// Lấy số lượng thuốc theo mã 
 if (!function_exists('LaySoLuongThuoc')) {
     function LaySoLuongThuoc($maLoai) {
         global $conn; 
