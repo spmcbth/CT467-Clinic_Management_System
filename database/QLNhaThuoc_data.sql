@@ -25,12 +25,12 @@ INSERT INTO NhaCungCap (MaNCC, TenNCC, SoDienThoai) VALUES
 ('NCC005', 'Công ty CP Dược Việt Nam', '0945678901');
 
 INSERT INTO Thuoc (MaThuoc, MaLoai, MaHangSX, MaNCC, TenThuoc, CongDung, DonGia, SoLuongTonKho, HanSuDung) VALUES
-('T001', 'LT001', 'HSX001', 'NCC001', 'Paracetamol', 'Giảm đau, hạ sốt', 5000, 200, '2025-12-31'),
+('T001', 'LT001', 'HSX001', 'NCC001', 'Paracetamol', 'Giảm đau, hạ sốt', 5000, 200, '2025-03-31'),
 ('T002', 'LT001', 'HSX002', 'NCC002', 'Ibuprofen', 'Giảm đau, chống viêm', 8000, 150, '2026-10-15'),
 ('T003', 'LT002', 'HSX003', 'NCC003', 'Amoxicillin', 'Kháng sinh điều trị nhiễm khuẩn', 12000, 100, '2026-07-30'),
 ('T004', 'LT002', 'HSX004', 'NCC002', 'Erythromycin', 'Kháng sinh nhóm macrolid', 15000, 180, '2026-05-01'),
 ('T005', 'LT004', 'HSX003', 'NCC003', 'Vitamin C', 'Bổ sung vitamin C', 10000, 250, '2026-08-20'),
-('T006', 'LT004', 'HSX005', 'NCC004', 'Calcium-D', 'Bổ sung canxi, tốt cho xương', 18000, 120, '2027-03-10'),
+('T006', 'LT004', 'HSX005', 'NCC004', 'Calcium-D', 'Bổ sung canxi, tốt cho xương', 18000, 120, '2025-03-10'),
 ('T007', 'LT003', 'HSX002', 'NCC002', 'Omeprazole', 'Điều trị viêm loét dạ dày', 22000, 80, '2026-11-22'),
 ('T008', 'LT003', 'HSX005', 'NCC005', 'Ranitidine', 'Giảm tiết axit dạ dày', 16000, 90, '2026-09-05'),
 ('T009', 'LT005', 'HSX001', 'NCC001', 'Bromhexine', 'Tiêu đờm, giảm ho', 9000, 130, '2026-10-15'),

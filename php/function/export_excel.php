@@ -32,7 +32,7 @@ try {
     $sheet->getStyle('A3:G3')->getFont()->setBold(true);
     $sheet->getStyle('A3:G3')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
-    // Truy vấn lấy dữ liệu chi tiết hóa đơn
+    // Truy vấn lấy chi tiết hóa đơn cho từng mã hóa đơn 
     $sql = "SELECT HoaDon.MaHD, KhachHang.TenKH, HoaDon.NgayLap, 
                    Thuoc.TenThuoc, ChiTietHoaDon.SoLuongBan, ChiTietHoaDon.GiaBan, 
                    (ChiTietHoaDon.SoLuongBan * ChiTietHoaDon.GiaBan) AS ThanhTien

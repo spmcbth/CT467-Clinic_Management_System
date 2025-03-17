@@ -61,7 +61,8 @@ td.button-center {
 }
 
 .btn-primary, 
-.btn-export-excel {
+.btn-export-excel,
+.btn-search {
     padding: 12px 18px;
     font-size: 16px;
 }
@@ -82,6 +83,15 @@ td.button-center {
 
 .btn-export-excel:hover {
     background: #0056b3;
+}
+
+.btn-search {
+    background-color: #007bff;
+    color: white;
+}
+
+.bth-search:hover {
+    background-color: #0056b3;
 }
 
 .btn-view, 

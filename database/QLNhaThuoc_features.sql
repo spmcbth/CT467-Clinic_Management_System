@@ -1,4 +1,29 @@
 USE QLNhaThuoc;
+SHOW TRIGGERS FROM QLNhaThuoc;
+SHOW EVENTS FROM QLNhaThuoc;
+
+            /* === FUNCTION === */
+-- Trả về tổng số lượng thuốc còn lại trong kho của một loại thuốc 
+DELIMITER $$
+CREATE FUNCTION LaySoLuongThuoc(p_MaLoai VARCHAR(10))
+RETURNS INT
+DETERMINISTIC
+BEGIN
+    DECLARE tongSoLuong INT DEFAULT 0;
+    
+    -- Tính tổng số lượng tồn kho của tất cả thuốc thuộc loại này
+    SELECT SUM(SoLuongTonKho) INTO tongSoLuong
+    FROM Thuoc
+    WHERE MaLoai = p_MaLoai;
+    
+    -- Nếu không có thuốc thuộc loại này hoặc tổng là NULL, trả về 0
+    IF tongSoLuong IS NULL THEN
+        SET tongSoLuong = 0;
+    END IF;
+    
+    RETURN tongSoLuong;
+END $$
+-- SELECT LaySoLuongThuoc('LT001') AS SoLuongTon;
 
             /* === TRIGGER === */
 -- Tự động thông báo thuốc hết hạn mỗi ngày vào 6h sáng 
@@ -77,17 +102,6 @@ BEGIN
 	SELECT * FROM HoaDon;
 END $$
 
--- Danh sách chi tiết hóa đơn
-DELIMITER $$
-DROP PROCEDURE IF EXISTS LayChiTietHoaDon $$
-CREATE PROCEDURE LayChiTietHoaDon(IN p_MaHD VARCHAR(10))
-BEGIN
-	SELECT Thuoc.TenThuoc, ChiTietHoaDon.SoLuongBan, ChiTietHoaDon.GiaBan
-	FROM ChiTietHoaDon
-	JOIN Thuoc ON ChiTietHoaDon.MaThuoc = Thuoc.MaThuoc
-	WHERE ChiTietHoaDon.MaHD = p_MaHD;
-END $$
-
 -- Danh sách thông báo thuốc sắp hết hạn
 DELIMITER $$
 CREATE PROCEDURE LayDanhSachThuocHetHan()
@@ -117,6 +131,7 @@ BEGIN
 	SELECT * FROM NhaCungCap;
 END $$
 
+			/* === QUẢN LÝ HÓA ĐƠN === */
 -- Lấy hóa đơn theo mã 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS LayHoaDon $$
@@ -126,6 +141,17 @@ BEGIN
 	FROM HoaDon
 	JOIN KhachHang ON HoaDon.MaKH = KhachHang.MaKH
 	WHERE HoaDon.MaHD = p_MaHD;
+END $$
+
+-- Danh sách chi tiết hóa đơn
+DELIMITER $$
+DROP PROCEDURE IF EXISTS LayChiTietHoaDon $$
+CREATE PROCEDURE LayChiTietHoaDon(IN p_MaHD VARCHAR(10))
+BEGIN
+	SELECT Thuoc.TenThuoc, ChiTietHoaDon.SoLuongBan, ChiTietHoaDon.GiaBan
+	FROM ChiTietHoaDon
+	JOIN Thuoc ON ChiTietHoaDon.MaThuoc = Thuoc.MaThuoc
+	WHERE ChiTietHoaDon.MaHD = p_MaHD;
 END $$
 
             /* === QUẢN LÝ THUỐC === */

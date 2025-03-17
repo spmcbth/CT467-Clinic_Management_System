@@ -8,6 +8,7 @@ if (!isset($_SESSION["username"])) {
 require_once 'config.php';
 require_once 'function/functions.php';
 require_once 'function/them_loai_thuoc.php';
+require_once 'function/timkiem_theoloai.php';
 
 // Lấy danh sách loại thuốc
 $loaiThuoc = LayDanhSach('LayDanhSachLoaiThuoc');
@@ -45,8 +46,11 @@ if (isset($_SESSION['thongbao'])) {
                         
                         <!-- Button thêm loại thuốc -->
                         <div class="btn-container">
-                            <button class="btn btn-primary mb-3" onclick="toggleForm()">
+                            <button class="btn btn-primary mb-3" onclick="toggleForm('formThemLoaiThuoc')">
                                 <i class="fas fa-plus"></i> Thêm Loại Thuốc
+                            </button>
+                            <button class="btn btn-search mb-3" onclick="toggleForm('formTimKiemThuoc')">
+                                <i class="fas fa-search"></i> Tra cứu lượng thuốc 
                             </button>
                         </div>
 
@@ -65,6 +69,27 @@ if (isset($_SESSION['thongbao'])) {
                                     <input type="text" name="don_vi_tinh" placeholder="Nhập đơn vị tính" required>
                                 </div>
                                 <input type="submit" name="btn_them" value="Lưu Loại Thuốc" class="btn-submit">
+                            </form>
+                        </div>
+
+                        <!-- Form tìm kiếm thuốc theo loại -->
+                        <div id="formTimKiemThuoc" class="form-container" style="display: none;">
+                            <form method="POST" action="./function/timkiem_theoloai.php" class="form-thuoc">
+                                <div class="form-group">
+                                    <label>Chọn Loại Thuốc:</label>
+                                    <select name="loai_thuoc" required>
+                                        <option value="">-- Chọn loại thuốc --</option>
+                                        <?php
+                                        $dsLoaiThuoc = LayDanhSach('LayDanhSachLoaiThuoc');
+                                        if ($dsLoaiThuoc && $dsLoaiThuoc->num_rows > 0) {
+                                            while ($row = $dsLoaiThuoc->fetch_assoc()) {
+                                                echo "<option value='" . htmlspecialchars($row['MaLoai']) . "'>" . htmlspecialchars($row['TenLoai']) . "</option>";
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <input type="submit" name="btn_tim_kiem" value="Tra cứu loại thuốc" class="btn-submit">
                             </form>
                         </div>
 
@@ -112,9 +137,9 @@ if (isset($_SESSION['thongbao'])) {
 </div>
 
 <script>
-    function toggleForm() {
-        const form = document.getElementById('formThemLoaiThuoc');
-        form.style.display = (form.style.display === 'none') ? 'block' : 'none';
+    function toggleForm(formId) {
+        const form = document.getElementById(formId);
+        form.style.display = (form.style.display === 'none' || form.style.display === '') ? 'block' : 'none';
     }
 </script>
 </body>

@@ -1,4 +1,3 @@
-/* Bố cục tổng thể */
 .wrapper {
     display: flex;
     min-height: 100vh;
@@ -11,19 +10,16 @@
     flex-direction: column;
 }
 
-/* Nội dung chính */
 .main-content {
     flex-grow: 1;
     padding: 20px;
 }
 
-/* Phần container chứa nội dung */
 .container {
     max-width: 900px;
     margin: auto;
 }
 
-/* Tiêu đề trang */
 .page-header {
     text-align: center;
     text-transform: uppercase;
@@ -35,7 +31,6 @@
     margin-bottom: 20px;
 }
 
-/* Card chứa thông tin hóa đơn */
 .card {
     background: white;
     padding: 18px;

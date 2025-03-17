@@ -122,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                             <div class="form-group">
                                 <label for="don_gia">Đơn giá:</label>
-                                <input type="number" step="0.01" name="don_gia" id="don_gia" value="<?= htmlspecialchars($thuoc['DonGia']) ?>" required>
+                                <input type="number" step="1" name="don_gia" id="don_gia" value="<?= htmlspecialchars($thuoc['DonGia']) ?>" required>
                             </div>
 
                             <div class="form-group">

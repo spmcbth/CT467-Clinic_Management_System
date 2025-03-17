@@ -171,6 +171,25 @@ if (!function_exists('CapNhatSoLuongThuoc')) {
 }
 
 
+
+if (!function_exists('LaySoLuongThuoc')) {
+    function LaySoLuongThuoc($maLoai) {
+        global $conn; 
+    
+        $query = "SELECT LaySoLuongThuoc(?) AS SoLuongTon";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("s", $maLoai);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($row = $result->fetch_assoc()) {
+            return $row['SoLuongTon'];
+        }
+        
+        return 0; // Trả về 0 nếu không có dữ liệu
+    }
+}
+
             /* === XEM CHI TIẾT HÓA ĐƠN === */
 // Lấy hóa đơn theo mã 
 if (!function_exists('LayHoaDon')) {
