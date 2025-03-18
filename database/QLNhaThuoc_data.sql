@@ -50,7 +50,6 @@ INSERT INTO HoaDon (MaHD, MaKH, NgayLap, TongTien) VALUES
 ('HD004', 'KH004', '2025-03-04', 80000),
 ('HD005', 'KH005', '2025-03-05', 75000);
 
-
 INSERT INTO ChiTietHoaDon (MaCTHD, MaHD, MaThuoc, SoLuongBan, GiaBan) VALUES
 ('CTHD001', 'HD001', 'T001', 2, 5000),
 ('CTHD002', 'HD001', 'T002', 1, 7000),
